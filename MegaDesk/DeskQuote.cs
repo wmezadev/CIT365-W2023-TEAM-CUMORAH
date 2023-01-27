@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static MegaDesk.Desk;
 
 namespace MegaDesk
@@ -128,6 +130,35 @@ namespace MegaDesk
             return 0;
         }
 
+
+        public string[] GetRushOrder()
+        {
+            string path = @"files\TextFile1.txt";
+            List<string> prices = new List<string>();
+            try 
+            { 
+                if(File.Exists(path))
+                {
+                    string[] readText = File.ReadAllLines(path);
+                    prices = new List<string>(readText.Length);
+                    foreach (string price in readText)
+                    {                 
+                        prices.Add(price);  
+                    }
+                    return prices.ToArray();
+
+                }
+                else
+                {
+                    throw new Exception("File doesnt exist");
+                }
+
+            } catch (FileNotFoundException e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+            return prices.ToArray(); //Default value is empy
+        }
         public double GetTotalPrice()
         {
             return GetBasePrice() + GetAreaPrice() + GetMaterialPrice() + GetDrawerPrice() + GetRushPrice();
