@@ -52,6 +52,8 @@
     <Compile Include="AddQuote.Designer.cs">
       <DependentUpon>AddQuote.cs</DependentUpon>
     </Compile>
+    <Compile Include="Datamodel.cs" />
+    <Compile Include="DatamodelDesk.cs" />
     <Compile Include="DeskQuote.cs" />
     <Compile Include="Desk.cs" />
     <Compile Include="DisplayQuote.cs">
