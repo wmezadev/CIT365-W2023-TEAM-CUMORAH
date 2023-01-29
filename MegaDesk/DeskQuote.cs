@@ -39,8 +39,14 @@ namespace MegaDesk
         public int SurfaceMaterial { get; set; }
 
 
+<<<<<<< Updated upstream
         //public DateTime dateTime = DateTime.Now;
         public DeskQuote(Desk desk, string customerName, RUSH_DAYS rushDays)
+=======
+
+        //public DateTime dateTime = DateTime.Now;
+        public DeskQuote (Desk desk, string customerName, RUSH_DAYS rushDays)
+>>>>>>> Stashed changes
         {
             this.desk = desk;
             Width = desk.Width;
