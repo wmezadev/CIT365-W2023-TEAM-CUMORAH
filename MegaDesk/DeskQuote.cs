@@ -28,15 +28,29 @@ namespace MegaDesk
         }
 
         public Desk desk;
+
+        public DateTime dateTime { get; set; }
         public string CustomerName { get; set; }
         public RUSH_DAYS RushDays { get; set; }
 
-        public DateTime dateTime = DateTime.Now;
-        public DeskQuote (Desk desk, string customerName, RUSH_DAYS rushDays)
+        public int Width { get; set; }
+        public int Depth { get; set; }
+        public int NumberOfDrawers { get; set; }
+        public int SurfaceMaterial { get; set; }
+
+
+        //public DateTime dateTime = DateTime.Now;
+        public DeskQuote(Desk desk, string customerName, RUSH_DAYS rushDays)
         {
             this.desk = desk;
+            Width = desk.Width;
+            Depth = desk.Depth;
+            NumberOfDrawers = desk.NumberOfDrawers;
+            SurfaceMaterial = (int)desk.SurfaceMaterial;
+            dateTime = DateTime.Now;
             CustomerName = customerName;
             RushDays = rushDays;
+
         }
 
         // Code from https://stackoverflow.com/questions/2650080/how-to-get-c-sharp-enum-description-from-value

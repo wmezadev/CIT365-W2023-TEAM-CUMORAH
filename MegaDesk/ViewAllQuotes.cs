@@ -29,12 +29,9 @@ namespace MegaDesk
         {
             try
             {
-                string fileJson = File.ReadAllText(@"C:\Users\Arturo\Documents\GitHub\CIT365-W2023-TEAM-CUMORAH\MegaDesk\bin\Debug\files\quotes.json");
-                List<Datamodel> lst = JsonConvert.DeserializeObject<List<Datamodel>>(fileJson);
-                List<DatamodelDesk> lst2 = JsonConvert.DeserializeObject<List<DatamodelDesk>>(fileJson);
-
-                dataGridView1.DataSource = lst;
-                dataGridView2.DataSource = lst2;
+                string fileJson = File.ReadAllText(@"files\quotes.json");
+                List<DeskQuote> lstQuote = JsonConvert.DeserializeObject<List<DeskQuote>>(fileJson);
+                dataGridView1.DataSource = lstQuote;
 
             }
             catch (Exception ex)
