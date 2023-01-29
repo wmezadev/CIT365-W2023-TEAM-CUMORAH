@@ -28,10 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-<<<<<<< Updated upstream
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-=======
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewAllQuotes));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -39,19 +35,10 @@
             this.labelDrawers = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
->>>>>>> Stashed changes
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
-<<<<<<< Updated upstream
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 94);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(776, 344);
-            this.dataGridView1.TabIndex = 0;
-            // 
-=======
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -88,28 +75,21 @@
             this.labelDrawers.TabIndex = 8;
             this.labelDrawers.Text = "You can see all quotes that this app was created.";
             // 
->>>>>>> Stashed changes
             // ViewAllQuotes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-<<<<<<< Updated upstream
-=======
             this.Controls.Add(this.labelDrawers);
             this.Controls.Add(this.newQuoteLabelTitle);
             this.Controls.Add(this.pictureBox1);
->>>>>>> Stashed changes
             this.Controls.Add(this.dataGridView1);
             this.Name = "ViewAllQuotes";
             this.Text = "ViewAllQuotes";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ViewAllQuotes_FormClosed);
             this.Load += new System.EventHandler(this.ViewAllQuotes_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-<<<<<<< Updated upstream
-=======
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
->>>>>>> Stashed changes
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -118,11 +98,8 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-<<<<<<< Updated upstream
-=======
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label newQuoteLabelTitle;
         private System.Windows.Forms.Label labelDrawers;
->>>>>>> Stashed changes
     }
 }

@@ -55,8 +55,6 @@
     <Compile Include="AddQuote.Designer.cs">
       <DependentUpon>AddQuote.cs</DependentUpon>
     </Compile>
-    <Compile Include="Datamodel.cs" />
-    <Compile Include="DatamodelDesk.cs" />
     <Compile Include="DeskQuote.cs" />
     <Compile Include="Desk.cs" />
     <Compile Include="DisplayQuote.cs">
@@ -110,6 +108,9 @@
     <EmbeddedResource Include="ViewAllQuotes.resx">
       <DependentUpon>ViewAllQuotes.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="files\quotes.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -124,5 +125,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
