@@ -37,6 +37,7 @@ namespace MegaDesk
             catch (Exception ex)
             {
                 //Ignored
+                Console.WriteLine(ex.Message);
             }
         }
     }
