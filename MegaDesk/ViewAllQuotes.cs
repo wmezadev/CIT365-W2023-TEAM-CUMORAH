@@ -1,10 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,19 +23,5 @@ namespace MegaDesk
             formMainMenu.Show();
         }
 
-        private void ViewAllQuotes_Load(object sender, EventArgs e)
-        {
-            try
-            {
-                string fileJson = File.ReadAllText(@"files\quotes.json");
-                List<DeskQuote> lstQuote = JsonConvert.DeserializeObject<List<DeskQuote>>(fileJson);
-                dataGridView1.DataSource = lstQuote;
-
-            }
-            catch (Exception ex)
-            {
-                //Ignored
-            }
-        }
     }
 }
