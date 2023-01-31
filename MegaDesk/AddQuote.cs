@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -91,6 +93,33 @@ namespace MegaDesk
             DeskQuote deskQuote = new DeskQuote(desk, textBoxCustomer.Text, (DeskQuote.RUSH_DAYS) comboBoxRush.SelectedIndex);
 
             DisplayQuote formDisplayQuote = new DisplayQuote(deskQuote);
+            try
+            {
+                if (File.Exists("files/quotes.json"))
+                {
+                    string oldJson = File.ReadAllText("files/quotes.json");
+                    List<DeskQuote> displayQuotes = JsonConvert.DeserializeObject<List<DeskQuote>>(oldJson);
+                    displayQuotes.Add(deskQuote);
+
+                    string json = JsonConvert.SerializeObject(displayQuotes, Formatting.Indented);
+
+                    File.WriteAllText("files/quotes.json", json);
+
+                }else
+                {
+                    //when there is not json created we have to use the only quote that we have
+                    List<DeskQuote> deskQuotes = new List<DeskQuote> { deskQuote };
+                    string json = JsonConvert.SerializeObject(deskQuotes, Formatting.Indented);
+
+                    File.WriteAllText("files/quotes.json", json);
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.Message);
+               
+            }
+
             // Pass This Tag
             formDisplayQuote.Tag = this.Tag;
             formDisplayQuote.Show(this);
