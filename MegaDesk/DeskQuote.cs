@@ -94,58 +94,67 @@ namespace MegaDesk
 
         public double GetRushPrice()
         {
+            string[] pricesFromFile = GetRushOrder();
+            int[,] rushOrderPrices = PreparePricesFromFile(pricesFromFile);
+            var dephwith = desk.GetArea();
             if (RushDays.Equals(RUSH_DAYS.Rush14))
             {
                 return 0;
             }
             if (desk.GetArea() < 1000)
             {
-                if(RushDays.Equals(RUSH_DAYS.Rush3))
+                int FIRST_COLUMN = 0;
+                return rushOrderPrices[(int)RushDays, FIRST_COLUMN];
+                /*if(RushDays.Equals(RUSH_DAYS.Rush3))
                 {  
-                    return 60;
+                    return rushOrderPrices[(int)RUSH_DAYS.Rush3, FIRST_COLUMN];
                 } else if(RushDays.Equals(RUSH_DAYS.Rush5))
                 {
-                    return 40;
+                    return rushOrderPrices[(int)RUSH_DAYS.Rush5, FIRST_COLUMN];
                 } else
                 {
-                    return 30;
-                }
+                    return rushOrderPrices[(int)RUSH_DAYS.Rush7, FIRST_COLUMN];
+                }*/
             }
-            else if (desk.GetArea() >= 1000 && desk.GetArea() < 2000)
+            else if (desk.GetArea() >= 1000 && desk.GetArea() <= 2000)
             {
-                if (RushDays.Equals(RUSH_DAYS.Rush3))
+                int SECOND_COLUMN = 1;
+                return rushOrderPrices[(int)RushDays, SECOND_COLUMN];
+                /*if (RushDays.Equals(RUSH_DAYS.Rush3))
                 {
-                    return 70;
+                    return rushOrderPrices[(int)RUSH_DAYS.Rush3, SECOND_COLUMN];
                 }
                 else if (RushDays.Equals(RUSH_DAYS.Rush5))
                 {
-                    return 50;
+                    return rushOrderPrices[(int)RUSH_DAYS.Rush5, SECOND_COLUMN];
                 }
                 else
                 {
-                    return 35;
-                }
+                    return rushOrderPrices[(int)RUSH_DAYS.Rush7, SECOND_COLUMN];
+                }*/
             }
-            else if (desk.GetArea() >= 2000)
+            else if (desk.GetArea() > 2000)
             {
-                if (RushDays.Equals(RUSH_DAYS.Rush3))
+                int THRID_COLUMN = 2;
+                return rushOrderPrices[(int)RushDays, THRID_COLUMN];
+/*                if (RushDays.Equals(RUSH_DAYS.Rush3))
                 {
-                    return 80;
+                    return rushOrderPrices[(int)RUSH_DAYS.Rush3, THRID_COLUMN];
                 }
                 else if (RushDays.Equals(RUSH_DAYS.Rush5))
                 {
-                    return 60;
+                    return rushOrderPrices[(int)RUSH_DAYS.Rush5, THRID_COLUMN];
                 }
                 else
                 {
-                    return 40;
-                }
+                    return rushOrderPrices[(int)RUSH_DAYS.Rush7, THRID_COLUMN];
+                }*/
             }
             return 0;
         }
 
 
-        public string[] GetRushOrder()
+        private string[] GetRushOrder()
         {
             string path = @"files\TextFile1.txt";
             List<string> prices = new List<string>();
@@ -172,6 +181,25 @@ namespace MegaDesk
                     MessageBox.Show(e.Message);
                 }
             return prices.ToArray(); //Default value is empy
+        }
+
+        private int[,] PreparePricesFromFile(string[] pricesFromFile)
+        {
+            int[,] prices = new int[3,3] ;
+            double row = 0;
+            int counter = 0;
+            for ( int i = 0; i< pricesFromFile.Length; i++ ) {
+                int price = int.Parse(pricesFromFile[i]);
+                prices[(int)row, counter] = price;
+
+                counter++;
+                if ( (i + 1) % 3 == 0)
+                {
+                    row++;
+                    counter = 0;  // every 3 items I want to restart this counter in order to fill the array
+                }
+            }
+            return prices;  
         }
         public double GetTotalPrice()
         {
