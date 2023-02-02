@@ -24,10 +24,10 @@ namespace MegaDesk
             // Populate combo box with Surface list
             comboBoxMaterialSearch.DataSource = surface_materials;
             comboBoxMaterialSearch.SelectedIndex = -1;
-
+            //int x = (int)Desk.DesktopMaterial.Rosewood;
             // List<Desk.DesktopMaterial> surface_materials2 = Enum.GetValues(typeof(Desk.DesktopMaterial)).Cast<Desk.DesktopMaterial>().ToList();
             //List<Desk.DesktopMaterial> x = Enum.GetValues(typeof(Desk.DesktopMaterial)).Cast<Desk.DesktopMaterial>().ToList();
-            //label1.Text = ;
+            
         }
         private void SearchQuotes_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -37,8 +37,13 @@ namespace MegaDesk
 
         private void comboBoxMaterialSearch_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
-            string materials = comboBoxMaterialSearch.Text; /// NECESITO CONSEGUIR EL VALOR DE LA VARIABLE MATERIALS QUE ES EL NOMBRE DEL MATERIAL
+
+            //string materials = (int)Desk.DesktopMaterial.comboBoxMaterialSearch.SelectedItem; 
+            /// NECESITO CONSEGUIR EL VALOR DE LA VARIABLE MATERIALS QUE ES EL NOMBRE DEL MATERIAL
+            /// 
+
+            int materials = Convert.ToInt32(comboBoxMaterialSearch.SelectedItem);
+            //int materials = (int)Desk.DesktopMaterial.Laminate;
             try
             {
                 string fileJson = File.ReadAllText(@"files\quotes.json");
@@ -54,15 +59,13 @@ namespace MegaDesk
                         new DataColumn("Number of Drawers", typeof(int)),
                         new DataColumn("Surface Material", typeof(int)),
                     });
-
+                
                 for (int i = 1; i < lstQuote.Count; i++)
                 {
-                    if (lstQuote[i].SurfaceMaterial == Convert.ToInt32(materials)) // AQUI VA A IR EL STRING materials PARA COMPARAR LA SUPERFICIE DEL MATERIAL
+                    if (lstQuote[i].SurfaceMaterial == materials) // AQUI VA A IR EL STRING materials PARA COMPARAR LA SUPERFICIE DEL MATERIAL
                     {
-                       dt.Rows.Add(lstQuote[i].dateTime, lstQuote[i].CustomerName, lstQuote[i].RushDays, lstQuote[i].Width, lstQuote[i].Depth, lstQuote[i].NumberOfDrawers, lstQuote[i].SurfaceMaterial);
-                    
+                        dt.Rows.Add(lstQuote[i].dateTime, lstQuote[i].CustomerName, lstQuote[i].RushDays, lstQuote[i].Width, lstQuote[i].Depth, lstQuote[i].NumberOfDrawers, lstQuote[i].SurfaceMaterial);
                     }
-                   
                 }
 
                 dataGridView1.DataSource = dt;
