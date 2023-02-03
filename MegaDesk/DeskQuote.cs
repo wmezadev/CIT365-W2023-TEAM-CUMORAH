@@ -94,69 +94,30 @@ namespace MegaDesk
 
         public double GetRushPrice()
         {
-            string[] pricesFromFile = GetRushOrder();
-            int[,] rushOrderPrices = PreparePricesFromFile(pricesFromFile);
-            var dephwith = desk.GetArea();
-            if (RushDays.Equals(RUSH_DAYS.Rush14))
-            {
+            // If there is no rush (14 day) skip calc and return 0
+            if (RushDays.Equals(RUSH_DAYS.Rush14)) {
                 return 0;
             }
-            if (desk.GetArea() < 1000)
-            {
-                int FIRST_COLUMN = 0;
-                return rushOrderPrices[(int)RushDays, FIRST_COLUMN];
-                /*if(RushDays.Equals(RUSH_DAYS.Rush3))
-                {  
-                    return rushOrderPrices[(int)RUSH_DAYS.Rush3, FIRST_COLUMN];
-                } else if(RushDays.Equals(RUSH_DAYS.Rush5))
-                {
-                    return rushOrderPrices[(int)RUSH_DAYS.Rush5, FIRST_COLUMN];
-                } else
-                {
-                    return rushOrderPrices[(int)RUSH_DAYS.Rush7, FIRST_COLUMN];
-                }*/
+            // price file
+            string[] pricesFromFile = GetRushOrder();
+            // convert file into two dimensions arrays
+            int[,] rushOrderPrices = PreparePricesFromFile(pricesFromFile);
+            // default area position (area less than 1000)
+            int areaColumn = 0;            
+            if (desk.GetArea() >= 1000 && desk.GetArea() <= 2000) {
+                areaColumn = 1;
             }
-            else if (desk.GetArea() >= 1000 && desk.GetArea() <= 2000)
-            {
-                int SECOND_COLUMN = 1;
-                return rushOrderPrices[(int)RushDays, SECOND_COLUMN];
-                /*if (RushDays.Equals(RUSH_DAYS.Rush3))
-                {
-                    return rushOrderPrices[(int)RUSH_DAYS.Rush3, SECOND_COLUMN];
-                }
-                else if (RushDays.Equals(RUSH_DAYS.Rush5))
-                {
-                    return rushOrderPrices[(int)RUSH_DAYS.Rush5, SECOND_COLUMN];
-                }
-                else
-                {
-                    return rushOrderPrices[(int)RUSH_DAYS.Rush7, SECOND_COLUMN];
-                }*/
+            else if (desk.GetArea() > 2000) {
+                areaColumn = 2;
             }
-            else if (desk.GetArea() > 2000)
-            {
-                int THRID_COLUMN = 2;
-                return rushOrderPrices[(int)RushDays, THRID_COLUMN];
-/*                if (RushDays.Equals(RUSH_DAYS.Rush3))
-                {
-                    return rushOrderPrices[(int)RUSH_DAYS.Rush3, THRID_COLUMN];
-                }
-                else if (RushDays.Equals(RUSH_DAYS.Rush5))
-                {
-                    return rushOrderPrices[(int)RUSH_DAYS.Rush5, THRID_COLUMN];
-                }
-                else
-                {
-                    return rushOrderPrices[(int)RUSH_DAYS.Rush7, THRID_COLUMN];
-                }*/
-            }
-            return 0;
+            // return price using rush days and area position
+            return rushOrderPrices[(int) RushDays, areaColumn];
         }
 
 
         private string[] GetRushOrder()
         {
-            string path = @"files\TextFile1.txt";
+            string path = @"files\rushOrderPrices.txt";
             List<string> prices = new List<string>();
             try 
             { 
