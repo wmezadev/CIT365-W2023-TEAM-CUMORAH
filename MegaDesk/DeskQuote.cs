@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static MegaDesk.Desk;
 
 namespace MegaDesk
@@ -92,56 +94,74 @@ namespace MegaDesk
 
         public double GetRushPrice()
         {
-            if (RushDays.Equals(RUSH_DAYS.Rush14))
-            {
+            // If there is no rush (14 day) skip calc and return 0
+            if (RushDays.Equals(RUSH_DAYS.Rush14)) {
                 return 0;
             }
-            if (desk.GetArea() < 1000)
-            {
-                if(RushDays.Equals(RUSH_DAYS.Rush3))
-                {  
-                    return 60;
-                } else if(RushDays.Equals(RUSH_DAYS.Rush5))
-                {
-                    return 40;
-                } else
-                {
-                    return 30;
-                }
+            // price file
+            string[] pricesFromFile = GetRushOrder();
+            // convert file into two dimensions arrays
+            int[,] rushOrderPrices = PreparePricesFromFile(pricesFromFile);
+            // default area position (area less than 1000)
+            int areaColumn = 0;            
+            if (desk.GetArea() >= 1000 && desk.GetArea() <= 2000) {
+                areaColumn = 1;
             }
-            else if (desk.GetArea() >= 1000 && desk.GetArea() < 2000)
-            {
-                if (RushDays.Equals(RUSH_DAYS.Rush3))
-                {
-                    return 70;
-                }
-                else if (RushDays.Equals(RUSH_DAYS.Rush5))
-                {
-                    return 50;
-                }
-                else
-                {
-                    return 35;
-                }
+            else if (desk.GetArea() > 2000) {
+                areaColumn = 2;
             }
-            else if (desk.GetArea() >= 2000)
-            {
-                if (RushDays.Equals(RUSH_DAYS.Rush3))
-                {
-                    return 80;
-                }
-                else if (RushDays.Equals(RUSH_DAYS.Rush5))
-                {
-                    return 60;
-                }
-                else
-                {
-                    return 40;
-                }
-            }
-            return 0;
+            // return price using rush days and area position
+            return rushOrderPrices[(int) RushDays, areaColumn];
         }
 
+
+        private string[] GetRushOrder()
+        {
+            string path = @"files\rushOrderPrices.txt";
+            List<string> prices = new List<string>();
+            try 
+            { 
+                if(File.Exists(path))
+                {
+                    string[] readText = File.ReadAllLines(path);
+                    prices = new List<string>(readText.Length);
+                    foreach (string price in readText)
+                    {                 
+                        prices.Add(price);  
+                    }
+                    return prices.ToArray();
+
+                }
+                else
+                {
+                    throw new Exception("File doesnt exist");
+                }
+
+            } catch (FileNotFoundException e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+            return prices.ToArray(); //Default value is empy
+        }
+
+        private int[,] PreparePricesFromFile(string[] pricesFromFile)
+        {
+            int[,] prices = new int[3,3] ;
+            double row = 0;
+            int counter = 0;
+            for ( int i = 0; i< pricesFromFile.Length; i++ ) {
+                int price = int.Parse(pricesFromFile[i]);
+                prices[(int)row, counter] = price;
+
+                counter++;
+                if ( (i + 1) % 3 == 0)
+                {
+                    row++;
+                    counter = 0;  // every 3 items I want to restart this counter in order to fill the array
+                }
+            }
+            return prices;  
+        }
         public double GetTotalPrice()
         {
             return GetBasePrice() + GetAreaPrice() + GetMaterialPrice() + GetDrawerPrice() + GetRushPrice();
