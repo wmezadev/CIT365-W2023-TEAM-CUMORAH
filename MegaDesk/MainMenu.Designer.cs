@@ -28,11 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
             this.AddNewQuoteNav = new System.Windows.Forms.Button();
             this.ViewNewQuoteNav = new System.Windows.Forms.Button();
             this.SearchQuotesNav = new System.Windows.Forms.Button();
             this.ExitNav = new System.Windows.Forms.Button();
             this.panelNav = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // AddNewQuoteNav
@@ -96,6 +99,16 @@
             this.panelNav.Size = new System.Drawing.Size(275, 299);
             this.panelNav.TabIndex = 17;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(319, 61);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(187, 180);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 18;
+            this.pictureBox1.TabStop = false;
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -103,6 +116,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(548, 299);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.ExitNav);
             this.Controls.Add(this.SearchQuotesNav);
             this.Controls.Add(this.ViewNewQuoteNav);
@@ -110,6 +124,7 @@
             this.Controls.Add(this.panelNav);
             this.Name = "MainMenu";
             this.Text = "MainMenu";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -121,6 +136,7 @@
         private System.Windows.Forms.Button SearchQuotesNav;
         private System.Windows.Forms.Button ExitNav;
         private System.Windows.Forms.Panel panelNav;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
