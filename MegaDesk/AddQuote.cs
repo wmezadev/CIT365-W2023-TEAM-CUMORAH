@@ -104,7 +104,6 @@ namespace MegaDesk
 
                 }else
                 {
-                    //when there is not json created we have to use the only quote that we have
                     List<DeskQuote> deskQuotes = new List<DeskQuote> { deskQuote };
                     string json = JsonConvert.SerializeObject(deskQuotes, Formatting.Indented);
 
@@ -133,14 +132,14 @@ namespace MegaDesk
                     if (width < 24)
                     {
                         e.Cancel = true;
-                        setErrorToField(textBoxWidth, Color.Red, "Minimum value is 24 inches");
+                        setErrorToField(textBoxWidth, Color.Red, "Minimum value is " + Desk.MIN_WIDTH + " inches");
 
                         return;
                     }
                     else if (width > 94)
                     {
                         e.Cancel = true;
-                        setErrorToField(textBoxWidth, Color.Red, "Maximum value is 94 inches");
+                        setErrorToField(textBoxWidth, Color.Red, "Maximum value is " + Desk.MAX_WIDTH + " inches");
 
                         return;
                     }
@@ -150,7 +149,7 @@ namespace MegaDesk
             else
             {
                 e.Cancel = true;
-                setErrorToField(textBoxWidth, Color.Red, "Please enter a number minor than 94 and major than 24");
+                setErrorToField(textBoxWidth, Color.Red, "Please enter a number minor than " + Desk.MAX_WIDTH + " and major than " + Desk.MIN_WIDTH);
             }
         }
 
