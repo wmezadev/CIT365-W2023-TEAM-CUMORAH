@@ -53,16 +53,13 @@ namespace MegaDesk
                 {
                     throw new Exception("Customer name should not be empty");
                 }
-                else if (!(Convert.ToInt32(textBoxWidth.Text) >= Desk.MIN_WIDTH && Convert.ToInt32(textBoxWidth.Text) <= Desk.MAX_WIDTH))
+                else if (string.IsNullOrEmpty(textBoxWidth.Text) || !(Convert.ToInt32(textBoxWidth.Text) >= Desk.MIN_WIDTH && Convert.ToInt32(textBoxWidth.Text) <= Desk.MAX_WIDTH))
                 {
-                    Console.WriteLine(Convert.ToInt32(textBoxWidth.Text));
-                    throw new Exception("You must give a width between min and max");
-
+                    throw new Exception("You must give a width between " + Desk.MIN_WIDTH + " and " + Desk.MAX_WIDTH);
                 }
-                else if (!(Convert.ToInt32(textBoxDepth.Text) >= Desk.MIN_DEPTH && Convert.ToInt32(textBoxDepth.Text) <= Desk.MAX_DEPTH))
+                else if (string.IsNullOrEmpty(textBoxDepth.Text) || !(Convert.ToInt32(textBoxDepth.Text) >= Desk.MIN_DEPTH && Convert.ToInt32(textBoxDepth.Text) <= Desk.MAX_DEPTH))
                 {
-                    Console.WriteLine(Convert.ToInt32(textBoxDepth.Text));
-                    throw new Exception("You must give a depth between min and max");
+                    throw new Exception("You must give a depth between " + Desk.MIN_DEPTH + " and " + Desk.MAX_DEPTH);
                 }
                 else if (comboBoxMaterial.SelectedIndex == -1)
                 {
@@ -89,7 +86,7 @@ namespace MegaDesk
             {
                 return;
             }
-            Desk desk = new Desk(Convert.ToInt32(textBoxDepth.Text), Convert.ToInt32(textBoxDepth.Text), Convert.ToInt32(comboBoxDrawers.SelectedText), (Desk.DesktopMaterial) comboBoxMaterial.SelectedItem);
+            Desk desk = new Desk(Convert.ToInt32(textBoxWidth.Text), Convert.ToInt32(textBoxDepth.Text), Convert.ToInt32(comboBoxDrawers.SelectedItem.ToString()), (Desk.DesktopMaterial) comboBoxMaterial.SelectedItem);
             DeskQuote deskQuote = new DeskQuote(desk, textBoxCustomer.Text, (DeskQuote.RUSH_DAYS) comboBoxRush.SelectedIndex);
 
             DisplayQuote formDisplayQuote = new DisplayQuote(deskQuote);
