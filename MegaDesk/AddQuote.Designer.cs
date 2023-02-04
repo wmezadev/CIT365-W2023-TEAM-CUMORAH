@@ -28,15 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.newQuoteLabelTitle = new System.Windows.Forms.Label();
             this.labelCustomer = new System.Windows.Forms.Label();
             this.textBoxCustomer = new System.Windows.Forms.TextBox();
             this.labelDeskWidth = new System.Windows.Forms.Label();
-            this.numericUpDownWidth = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDownDepth = new System.Windows.Forms.NumericUpDown();
             this.labelDrawers = new System.Windows.Forms.Label();
-            this.numericUpDownDrawers = new System.Windows.Forms.NumericUpDown();
             this.labelMaterial = new System.Windows.Forms.Label();
             this.comboBoxMaterial = new System.Windows.Forms.ComboBox();
             this.labelRush = new System.Windows.Forms.Label();
@@ -45,10 +43,12 @@
             this.buttonCancelQuote = new System.Windows.Forms.Button();
             this.buttonSaveQuote = new System.Windows.Forms.Button();
             this.panelAddNewQuoteCTAs = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWidth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDepth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDrawers)).BeginInit();
+            this.comboBoxDrawers = new System.Windows.Forms.ComboBox();
+            this.textBoxWidth = new System.Windows.Forms.TextBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.textBoxDepth = new System.Windows.Forms.TextBox();
             this.panelAddNewQuoteCTAs.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // newQuoteLabelTitle
@@ -86,13 +86,6 @@
             this.labelDeskWidth.TabIndex = 3;
             this.labelDeskWidth.Text = "Desk width (inches)";
             // 
-            // numericUpDownWidth
-            // 
-            this.numericUpDownWidth.Location = new System.Drawing.Point(216, 180);
-            this.numericUpDownWidth.Name = "numericUpDownWidth";
-            this.numericUpDownWidth.Size = new System.Drawing.Size(100, 20);
-            this.numericUpDownWidth.TabIndex = 4;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -102,13 +95,6 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "Desk depth (inches)";
             // 
-            // numericUpDownDepth
-            // 
-            this.numericUpDownDepth.Location = new System.Drawing.Point(216, 228);
-            this.numericUpDownDepth.Name = "numericUpDownDepth";
-            this.numericUpDownDepth.Size = new System.Drawing.Size(100, 20);
-            this.numericUpDownDepth.TabIndex = 6;
-            // 
             // labelDrawers
             // 
             this.labelDrawers.AutoSize = true;
@@ -117,13 +103,6 @@
             this.labelDrawers.Size = new System.Drawing.Size(103, 13);
             this.labelDrawers.TabIndex = 7;
             this.labelDrawers.Text = "Numbers of Drawers";
-            // 
-            // numericUpDownDrawers
-            // 
-            this.numericUpDownDrawers.Location = new System.Drawing.Point(531, 134);
-            this.numericUpDownDrawers.Name = "numericUpDownDrawers";
-            this.numericUpDownDrawers.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDownDrawers.TabIndex = 8;
             // 
             // labelMaterial
             // 
@@ -215,23 +194,60 @@
             this.panelAddNewQuoteCTAs.Size = new System.Drawing.Size(800, 100);
             this.panelAddNewQuoteCTAs.TabIndex = 16;
             // 
+            // comboBoxDrawers
+            // 
+            this.comboBoxDrawers.FormattingEnabled = true;
+            this.comboBoxDrawers.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"});
+            this.comboBoxDrawers.Location = new System.Drawing.Point(530, 132);
+            this.comboBoxDrawers.Name = "comboBoxDrawers";
+            this.comboBoxDrawers.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxDrawers.TabIndex = 17;
+            // 
+            // textBoxWidth
+            // 
+            this.textBoxWidth.Location = new System.Drawing.Point(217, 182);
+            this.textBoxWidth.Name = "textBoxWidth";
+            this.textBoxWidth.Size = new System.Drawing.Size(100, 20);
+            this.textBoxWidth.TabIndex = 18;
+            this.textBoxWidth.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxWidth_Validating);
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // textBoxDepth
+            // 
+            this.textBoxDepth.Location = new System.Drawing.Point(219, 229);
+            this.textBoxDepth.Name = "textBoxDepth";
+            this.textBoxDepth.Size = new System.Drawing.Size(98, 20);
+            this.textBoxDepth.TabIndex = 19;
+            this.textBoxDepth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDepth_KeyPress);
+            // 
             // AddQuote
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textBoxDepth);
+            this.Controls.Add(this.textBoxWidth);
+            this.Controls.Add(this.comboBoxDrawers);
             this.Controls.Add(this.panelAddNewQuoteCTAs);
             this.Controls.Add(this.labelCurrentDate);
             this.Controls.Add(this.comboBoxRush);
             this.Controls.Add(this.labelRush);
             this.Controls.Add(this.comboBoxMaterial);
             this.Controls.Add(this.labelMaterial);
-            this.Controls.Add(this.numericUpDownDrawers);
             this.Controls.Add(this.labelDrawers);
-            this.Controls.Add(this.numericUpDownDepth);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.numericUpDownWidth);
             this.Controls.Add(this.labelDeskWidth);
             this.Controls.Add(this.textBoxCustomer);
             this.Controls.Add(this.labelCustomer);
@@ -239,10 +255,8 @@
             this.Name = "AddQuote";
             this.Text = "Add Quote";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddQuote_FormClosed);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWidth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDepth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDrawers)).EndInit();
             this.panelAddNewQuoteCTAs.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -254,11 +268,8 @@
         private System.Windows.Forms.Label labelCustomer;
         private System.Windows.Forms.TextBox textBoxCustomer;
         private System.Windows.Forms.Label labelDeskWidth;
-        private System.Windows.Forms.NumericUpDown numericUpDownWidth;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown numericUpDownDepth;
         private System.Windows.Forms.Label labelDrawers;
-        private System.Windows.Forms.NumericUpDown numericUpDownDrawers;
         private System.Windows.Forms.Label labelMaterial;
         private System.Windows.Forms.ComboBox comboBoxMaterial;
         private System.Windows.Forms.Label labelRush;
@@ -267,5 +278,9 @@
         private System.Windows.Forms.Button buttonCancelQuote;
         private System.Windows.Forms.Button buttonSaveQuote;
         private System.Windows.Forms.Panel panelAddNewQuoteCTAs;
+        private System.Windows.Forms.ComboBox comboBoxDrawers;
+        private System.Windows.Forms.TextBox textBoxWidth;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.TextBox textBoxDepth;
     }
 }

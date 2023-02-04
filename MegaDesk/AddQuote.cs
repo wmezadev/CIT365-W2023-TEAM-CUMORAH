@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-
+using System.Data;
 
 namespace MegaDesk
 {
@@ -17,19 +17,7 @@ namespace MegaDesk
             // Set current Date in label
             DateTime dateTime = DateTime.Now;
             labelCurrentDate.Text = dateTime.ToString("dd/MM/yyyy");
-
-            // SET MAX, MINS and Defaults
-            numericUpDownWidth.Maximum = Desk.MAX_WIDTH;
-            numericUpDownWidth.Minimum = Desk.MIN_WIDTH;
-            numericUpDownWidth.Value = Desk.MIN_WIDTH;
-
-            numericUpDownDepth.Maximum = Desk.MAX_DEPTH;
-            numericUpDownDepth.Minimum = Desk.MIN_DEPTH;
-            numericUpDownDepth.Value = Desk.MIN_DEPTH;
-
-            numericUpDownDrawers.Maximum = Desk.MAX_DRAWER_NUMBER;
-            numericUpDownDrawers.Minimum = Desk.MIN_DRAWER_NUMBER;
-            numericUpDownDrawers.Value = Desk.MIN_DRAWER_NUMBER;
+            comboBoxDrawers.SelectedIndex = 0;
 
             List<Desk.DesktopMaterial> surface_materials = Enum.GetValues(typeof(Desk.DesktopMaterial)).Cast<Desk.DesktopMaterial>().ToList();
             // Populate combo box with Surface list
@@ -65,6 +53,17 @@ namespace MegaDesk
                 {
                     throw new Exception("Customer name should not be empty");
                 }
+                else if (!(Convert.ToInt32(textBoxWidth.Text) >= Desk.MIN_WIDTH && Convert.ToInt32(textBoxWidth.Text) <= Desk.MAX_WIDTH))
+                {
+                    Console.WriteLine(Convert.ToInt32(textBoxWidth.Text));
+                    throw new Exception("You must give a width between min and max");
+
+                }
+                else if (!(Convert.ToInt32(textBoxDepth.Text) >= Desk.MIN_DEPTH && Convert.ToInt32(textBoxDepth.Text) <= Desk.MAX_DEPTH))
+                {
+                    Console.WriteLine(Convert.ToInt32(textBoxDepth.Text));
+                    throw new Exception("You must give a depth between min and max");
+                }
                 else if (comboBoxMaterial.SelectedIndex == -1)
                 {
                     throw new Exception("You must select a Surface Material");
@@ -72,7 +71,8 @@ namespace MegaDesk
                 else if (comboBoxRush.SelectedIndex == -1)
                 {
                     throw new Exception("You must select a Rush Day");
-                } else
+                }
+                else
                 {
                     return true;
                 }
@@ -89,7 +89,7 @@ namespace MegaDesk
             {
                 return;
             }
-            Desk desk = new Desk((int) numericUpDownWidth.Value, (int) numericUpDownDepth.Value, (int) numericUpDownDrawers.Value, (Desk.DesktopMaterial) comboBoxMaterial.SelectedItem);
+            Desk desk = new Desk(Convert.ToInt32(textBoxDepth.Text), Convert.ToInt32(textBoxDepth.Text), Convert.ToInt32(comboBoxDrawers.SelectedText), (Desk.DesktopMaterial) comboBoxMaterial.SelectedItem);
             DeskQuote deskQuote = new DeskQuote(desk, textBoxCustomer.Text, (DeskQuote.RUSH_DAYS) comboBoxRush.SelectedIndex);
 
             DisplayQuote formDisplayQuote = new DisplayQuote(deskQuote);
@@ -124,6 +124,60 @@ namespace MegaDesk
             formDisplayQuote.Tag = this.Tag;
             formDisplayQuote.Show(this);
             Hide();
+        }
+
+        private void textBoxWidth_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            bool isNumber = int.TryParse(textBoxWidth.Text, out int width);
+            if (isNumber)
+            {
+                if (width.ToString().Length > 0)
+                {
+                    if (width < 24)
+                    {
+                        e.Cancel = true;
+                        setErrorToField(textBoxWidth, Color.Red, "Minimum value is 24 inches");
+
+                        return;
+                    }
+                    else if (width > 94)
+                    {
+                        e.Cancel = true;
+                        setErrorToField(textBoxWidth, Color.Red, "Maximum value is 94 inches");
+
+                        return;
+                    }
+                    removeErrorField(textBoxWidth);
+                }
+            }
+            else
+            {
+                e.Cancel = true;
+                setErrorToField(textBoxWidth, Color.Red, "Please enter a number minor than 94 and major than 24");
+            }
+        }
+
+        private void setErrorToField(TextBox inputField, Color errorColor, string errorMessge)
+        {
+            inputField.BackColor = errorColor;
+            //Set focus to recived input
+            inputField.Select(0, inputField.Text.Length);
+            // Set the ErrorProvider error with the text to display. 
+            this.errorProvider1.SetError(inputField, errorMessge);
+        }
+
+        private void removeErrorField(TextBox inputField)
+        {
+            this.errorProvider1.SetError(inputField, "");
+            inputField.BackColor = Color.White;
+        }
+
+        private void textBoxDepth_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }
