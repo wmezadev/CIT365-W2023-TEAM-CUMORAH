@@ -1,0 +1,69 @@
+﻿@page
+@model MegaDeskASP.Pages.Quotes.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Quote</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Quote.CustomerName" class="control-label"></label>
+                <input asp-for="Quote.CustomerName" class="form-control" />
+                <span asp-validation-for="Quote.CustomerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quote.Width" class="control-label"></label>
+                <input asp-for="Quote.Width" class="form-control" />
+                <span asp-validation-for="Quote.Width" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quote.Height" class="control-label"></label>
+                <input asp-for="Quote.Height" class="form-control" />
+                <span asp-validation-for="Quote.Height" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quote.SurfaceMaterial" class="control-label"></label>
+                <input asp-for="Quote.SurfaceMaterial" class="form-control" />
+                <span asp-validation-for="Quote.SurfaceMaterial" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quote.Drawer" class="control-label"></label>
+                <input asp-for="Quote.Drawer" class="form-control" />
+                <span asp-validation-for="Quote.Drawer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quote.ProductionTime" class="control-label"></label>
+                <input asp-for="Quote.ProductionTime" class="form-control" />
+                <span asp-validation-for="Quote.ProductionTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quote.DateCreated" class="control-label"></label>
+                <input asp-for="Quote.DateCreated" class="form-control" />
+                <span asp-validation-for="Quote.DateCreated" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quote.Price" class="control-label"></label>
+                <input asp-for="Quote.Price" class="form-control" />
+                <span asp-validation-for="Quote.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

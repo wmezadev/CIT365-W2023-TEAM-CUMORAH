@@ -125,5 +125,7 @@ namespace MegaDesk
             formDisplayQuote.Show(this);
             Hide();
         }
+
+       
     }
 }
