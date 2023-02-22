@@ -36,6 +36,8 @@ namespace MegaDeskASP.Pages.Quotes
                 return Page();
             }
 
+            Quote.Price = DeskQuote.CalculateTotalPrice(Quote.Width, Quote.Height, Quote.Drawer, Quote.ProductionTime, Quote.SurfaceMaterial);
+            Quote.DateCreated = DateTime.Now;
             _context.Quote.Add(Quote);
             await _context.SaveChangesAsync();
 
