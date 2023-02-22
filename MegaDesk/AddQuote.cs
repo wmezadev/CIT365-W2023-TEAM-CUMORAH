@@ -28,7 +28,7 @@ namespace MegaDesk
             List<string> rushOptions = new List<string>();
             for (int i = 0; i < rush_days_options_list.Count; i++)
             {
-                string rushOption = DeskQuote.GetEnumDescription((DeskQuote.RUSH_DAYS)i);
+                string rushOption = DeskQuote.GetEnumDescription((DeskQuote.RUSH_DAYS) i);
                 rushOptions.Add(rushOption);
             }
             // Populate combo box with Rush days list
@@ -87,8 +87,8 @@ namespace MegaDesk
             {
                 return;
             }
-            Desk desk = new Desk(Convert.ToInt32(textBoxWidth.Text), Convert.ToInt32(textBoxDepth.Text), Convert.ToInt32(comboBoxDrawers.SelectedItem.ToString()), (Desk.DesktopMaterial)comboBoxMaterial.SelectedItem);
-            DeskQuote deskQuote = new DeskQuote(desk, textBoxCustomer.Text, (DeskQuote.RUSH_DAYS)comboBoxRush.SelectedIndex);
+            Desk desk = new Desk(Convert.ToInt32(textBoxWidth.Text), Convert.ToInt32(textBoxDepth.Text), Convert.ToInt32(comboBoxDrawers.SelectedItem.ToString()), (Desk.DesktopMaterial) comboBoxMaterial.SelectedItem);
+            DeskQuote deskQuote = new DeskQuote(desk, textBoxCustomer.Text, (DeskQuote.RUSH_DAYS) comboBoxRush.SelectedIndex);
 
             DisplayQuote formDisplayQuote = new DisplayQuote(deskQuote);
             try
