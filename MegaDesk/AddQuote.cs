@@ -74,7 +74,8 @@ namespace MegaDesk
                     return true;
                 }
             }
-            catch (Exception exception) {
+            catch (Exception exception)
+            {
                 MessageBox.Show(exception.Message, "Error");
                 return false;
             }
@@ -102,7 +103,8 @@ namespace MegaDesk
 
                     File.WriteAllText("files/quotes.json", json);
 
-                }else
+                }
+                else
                 {
                     List<DeskQuote> deskQuotes = new List<DeskQuote> { deskQuote };
                     string json = JsonConvert.SerializeObject(deskQuotes, Formatting.Indented);
@@ -113,7 +115,7 @@ namespace MegaDesk
             catch (Exception exception)
             {
                 Console.WriteLine(exception.Message);
-               
+
             }
 
             // Pass This Tag
