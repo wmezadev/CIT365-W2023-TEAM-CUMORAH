@@ -30,7 +30,7 @@ namespace MegaDeskASP.Pages.Quotes
                 return NotFound();
             }
 
-            var quote =  await _context.Quote.FirstOrDefaultAsync(m => m.Id == id);
+            var quote = await _context.Quote.FirstOrDefaultAsync(m => m.Id == id);
             if (quote == null)
             {
                 return NotFound();
@@ -48,10 +48,15 @@ namespace MegaDeskASP.Pages.Quotes
                 return Page();
             }
 
+            Quote.Price = DeskQuote.CalculateTotalPrice(Quote.Width, Quote.Height, Quote.Drawer, Quote.ProductionTime, Quote.SurfaceMaterial);
+            Quote.DateCreated = DateTime.Now;
+            _context.Quote.Add(Quote);
+
             _context.Attach(Quote).State = EntityState.Modified;
 
             try
             {
+
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -66,12 +71,13 @@ namespace MegaDeskASP.Pages.Quotes
                 }
             }
 
+
             return RedirectToPage("./Index");
         }
 
         private bool QuoteExists(int id)
         {
-          return (_context.Quote?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Quote?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
