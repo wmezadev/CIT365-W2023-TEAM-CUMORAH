@@ -12,12 +12,9 @@
 </p>
 
 <form>
-    <p>
-        Book:
-    </p>
-@*    <select class="form-select" asp-for="Sort" asp-items="Model.SortOptions" style="width: 20%;display: inline-block; ">
+    <select class="form-select" asp-for="optionSelected" asp-items="Model.SortOptions">
         <option value="">clear</option>
-    </select>*@
+    </select>
     <p>Name:</p>  <input type="text" asp-for="SearchString" />
     <input type="submit" value="Filter" />
 
