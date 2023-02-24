@@ -19,14 +19,26 @@ namespace MegaDeskASP.Pages.Quotes
             _context = context;
         }
 
-        public IList<Quote> Quote { get;set; } = default!;
+        [BindProperty(SupportsGet = true)]
+        public string? SearchString { get; set; }
+
+        public IList<Quote> Quotes { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
+
+           var quotes = from quote in _context.Quote select quote; 
             if (_context.Quote != null)
             {
-                Quote = await _context.Quote.ToListAsync();
+                Quotes = await _context.Quote.ToListAsync();
             }
+
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                quotes = quotes.Where( quote=> quote.CustomerName.Contains(SearchString) ); 
+            }
+
+            Quotes = await quotes.ToListAsync();    
         }
     }
 }

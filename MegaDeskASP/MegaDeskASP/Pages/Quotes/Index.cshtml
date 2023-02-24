@@ -10,38 +10,50 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
+<form>
+    <p>
+        Book:
+    </p>
+@*    <select class="form-select" asp-for="Sort" asp-items="Model.SortOptions" style="width: 20%;display: inline-block; ">
+        <option value="">clear</option>
+    </select>*@
+    <p>Name:</p>  <input type="text" asp-for="SearchString" />
+    <input type="submit" value="Filter" />
+
+</form>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Quote[0].CustomerName)
+                @Html.DisplayNameFor(model => model.Quotes[0].CustomerName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Quote[0].Width)
+                @Html.DisplayNameFor(model => model.Quotes[0].Width)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Quote[0].Height)
+                @Html.DisplayNameFor(model => model.Quotes[0].Height)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Quote[0].SurfaceMaterial)
+                @Html.DisplayNameFor(model => model.Quotes[0].SurfaceMaterial)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Quote[0].Drawer)
+                @Html.DisplayNameFor(model => model.Quotes[0].Drawer)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Quote[0].ProductionTime)
+                @Html.DisplayNameFor(model => model.Quotes[0].ProductionTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Quote[0].DateCreated)
+                @Html.DisplayNameFor(model => model.Quotes[0].DateCreated)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Quote[0].Price)
+                @Html.DisplayNameFor(model => model.Quotes[0].Price)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Quote) {
+@foreach (var item in Model.Quotes) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.CustomerName)
