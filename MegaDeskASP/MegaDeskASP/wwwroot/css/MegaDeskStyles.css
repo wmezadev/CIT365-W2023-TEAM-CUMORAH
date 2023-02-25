@@ -1,0 +1,359 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap");
+/*Variables*/
+header {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 30px; }
+
+footer {
+  width: 100%;
+  background-color: #4D4D4D;
+  display: flex; }
+  footer div {
+    width: 50%;
+    display: flex;
+    padding-left: 30px;
+    justify-content: flex-start; }
+  footer .list-footer {
+    width: 50%;
+    padding-right: 30px;
+    justify-content: flex-end; }
+    footer .list-footer ul {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center; }
+      footer .list-footer ul li {
+        margin: 0px 10px 0px 10px;
+        list-style: none; }
+        footer .list-footer ul li a {
+          color: white;
+          text-decoration: none; }
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  margin: auto 0;
+  background-color: #4D4D4D; }
+
+.general-cont {
+  width: 100% !important;
+  display: flex !important; }
+
+.gray-zone {
+  width: 60%;
+  background-color: #EFEFEF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 150px; }
+
+.yellow-zone {
+  width: 40%;
+  background-color: #FEC650;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+#principal-image {
+  width: 100%; }
+
+.menu-container {
+  width: 560px;
+  display: flex;
+  flex-wrap: wrap; }
+  .menu-container a {
+    color: inherit;
+    text-decoration: none; }
+  .menu-container .btn-menu {
+    width: 262px;
+    height: 279px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*Border*/
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 0px solid #000000;
+    margin: 7.5px;
+    text-align: center;
+    cursor: pointer; }
+    .menu-container .btn-menu div p {
+      font-weight: 700;
+      font-size: 20px; }
+  .menu-container .btn-menu:hover {
+    -webkit-box-shadow: 0px 0px 14px 4px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 0px 14px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 14px 4px rgba(0, 0, 0, 0.3);
+    background-color: black;
+    color: white; }
+
+@media only screen and (max-width: 1480px) {
+  .menu-container {
+    width: 430px; }
+    .menu-container .btn-menu {
+      width: 200px;
+      height: 213px; }
+
+  .form-inputs {
+    padding-left: 20px;
+    padding-right: 20px; } }
+@media only screen and (max-width: 1124px) {
+  .menu-container {
+    width: 390px; }
+    .menu-container .btn-menu {
+      width: 180px;
+      height: 180px; } }
+@media only screen and (max-width: 1010px) {
+  header {
+    justify-content: center; }
+
+  .menu-container {
+    width: 430px;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    justify-content: center; }
+    .menu-container .btn-menu {
+      width: 200px;
+      height: 213px; }
+
+  .general-cont {
+    flex-direction: column; }
+
+  .gray-zone {
+    width: 100%; }
+
+  .yellow-zone {
+    width: 100%; }
+
+  footer {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 50px; }
+    footer div {
+      width: 100%;
+      padding-left: 0px;
+      justify-content: center; }
+    footer .list-footer {
+      width: 100%;
+      padding-right: 0px;
+      justify-content: center; }
+      footer .list-footer ul {
+        flex-direction: column; }
+        footer .list-footer ul li {
+          margin: 10px 0px 10px 0px; }
+
+  .container-desktop {
+    margin-top: 100px; } }
+@media only screen and (max-width: 1190px) {
+  .container-desktop {
+    width: 600px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column; }
+
+  #desktop-material {
+    width: 100%;
+    margin-top: -100px; }
+
+  #desktop-drawers {
+    width: 100%;
+    position: relative;
+    margin-top: -455px !important; }
+
+  .form-cont {
+    padding-top: 50px;
+    padding-bottom: 50px; } }
+@media only screen and (max-width: 615px) {
+  .container-desktop {
+    width: 300px;
+    margin-top: 50px;
+    margin-bottom: 20px; }
+
+  #desktop-drawers {
+    width: 100%;
+    position: relative;
+    margin-top: -225px !important; }
+
+  .form-cont {
+    padding-top: 0px;
+    padding-bottom: 50px; }
+
+  .menu-container {
+    padding-top: 50px; } }
+@media only screen and (max-width: 550px) {
+  header {
+    padding: 0; }
+    header img {
+      width: 100%;
+      padding-left: 25px;
+      padding-right: 25px; }
+
+  footer div img {
+    width: 100%;
+    padding-left: 25px;
+    padding-right: 25px; } }
+/**/
+.form-cont {
+  width: 100%;
+  padding-top: 80px;
+  padding-bottom: 100px; }
+  .form-cont h1 {
+    width: 100%;
+    text-align: center;
+    font-weight: 900;
+    font-size: 58px;
+    margin: 0; }
+  .form-cont .navegation {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 50px; }
+    .form-cont .navegation a {
+      text-decoration: underline;
+      color: black;
+      font-weight: 600; }
+  .form-cont .form-inputs input, .form-cont .form-inputs select {
+    height: 45px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    /*Border*/
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px; }
+  .form-cont .form-inputs .btn-standar {
+    width: 100%;
+    height: 60px;
+    background-color: black;
+    color: white;
+    font-weight: 900;
+    font-size: 20px;
+    margin-top: 50px;
+    /*Border*/
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 0px solid #000000; }
+
+.btn-delete {
+  width: 80%;
+  height: 60px;
+  background-color: #FF3030;
+  color: white;
+  font-weight: 900;
+  font-size: 20px;
+  margin-top: 50px;
+  /*Border*/
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border: 0px solid #000000; }
+
+.container-desktop {
+  display: flex;
+  justify-content: center;
+  flex-direction: column; }
+
+#desktop-drawers {
+  position: relative;
+  margin-top: -680px; }
+
+.hidden-field {
+  display: none; }
+
+.cont-table {
+  width: 80%; }
+  .cont-table dt {
+    width: 50%; }
+  .cont-table dd {
+    width: 50%; }
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.sure {
+  text-align: center;
+  padding-left: 20px;
+  padding-right: 20px; }
+
+.container-list {
+  width: 100%;
+  background-color: #EFEFEF;
+  padding-bottom: 200px; }
+
+.filter {
+  width: 100%;
+  padding: 30px 0px 30px 0px;
+  background-color: #FEC650;
+  display: flex;
+  justify-content: center;
+  margin-top: 150px;
+  margin-bottom: 30px; }
+  .filter form {
+    display: flex; }
+    .filter form select, .filter form input {
+      width: 300px;
+      height: 45px;
+      margin: 0px 10px 0px 10px;
+      padding-left: 15px;
+      /*Border*/
+      border-radius: 10px 10px 10px 10px;
+      -moz-border-radius: 10px 10px 10px 10px;
+      -webkit-border-radius: 10px 10px 10px 10px;
+      border: 0px solid #000000; }
+    .filter form .btn-filter {
+      background-color: black;
+      color: white;
+      width: 200px;
+      font-weight: 900;
+      /*Border*/
+      border-radius: 10px 10px 10px 10px;
+      -moz-border-radius: 10px 10px 10px 10px;
+      -webkit-border-radius: 10px 10px 10px 10px;
+      border: 0px solid #000000; }
+
+.controls a {
+  color: black;
+  text-decoration: none;
+  font-weight: 900; }
+.controls a:hover {
+  color: #FF3030; }
+
+.margin-side {
+  padding: 0px 25px 0px 25px; }
+
+@media only screen and (max-width: 910px) {
+  .filter form {
+    flex-direction: column; }
+    .filter form select, .filter form input {
+      width: 300px;
+      height: 45px;
+      margin: 10px 0px 10px 0px;
+      padding-left: 15px;
+      /*Border*/
+      border-radius: 10px 10px 10px 10px;
+      -moz-border-radius: 10px 10px 10px 10px;
+      -webkit-border-radius: 10px 10px 10px 10px;
+      border: 0px solid #000000; }
+    .filter form .btn-filter {
+      background-color: black;
+      color: white;
+      width: 300px;
+      font-weight: 900;
+      /*Border*/
+      border-radius: 10px 10px 10px 10px;
+      -moz-border-radius: 10px 10px 10px 10px;
+      -webkit-border-radius: 10px 10px 10px 10px;
+      border: 0px solid #000000; } }
+.nav-list a {
+  color: black;
+  font-weight: 600;
+  margin-top: 30px; }
+
+/*# sourceMappingURL=MegaDeskStyles.css.map */
