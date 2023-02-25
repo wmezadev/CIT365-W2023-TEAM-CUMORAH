@@ -7,12 +7,13 @@ public class Quote
 {
     public int Id { get; set; }
 
-    [Display(Name = "Customer Name")]
+    [Required, Display(Name = "Customer Name")]
     public string CustomerName { get; set; }
 
+    [Required, Range(24, 96)]
     public int Width { get; set; }
 
-    [Display(Name = "Depth")]
+    [Required, Range(12, 48), Display(Name = "Depth")]
     public int Height { get; set; }
 
     [Display(Name = "Surface Material")]
