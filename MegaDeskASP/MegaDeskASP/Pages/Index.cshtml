@@ -4,7 +4,60 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+    <!--Gray Zone-->
+    <div class="gray-zone">
+        <div>
+            <img id="principal-image" src="../images/PrincipalImage.png" alt="Principal Image">
+        </div>
+    </div>
+
+
+    <!--Yellow Zone-->
+    <div class="yellow-zone">
+        <div class="menu-container">
+
+            <!--Button Menu-->
+            <a asp-page="/Quotes/Create">
+                <div class="btn-menu" onmouseover="goToWhite(1)" onmouseout="goToBlack(1)">
+                    <div>
+                        <img id="addQuote" src="../images/AddQuote.png" alt="Add Quote">
+                        <p>Add Quote</p>
+                    </div>
+                </div>
+            </a>
+
+            <!--Button Menu-->
+            <a asp-page="/Quotes/Index">
+                <div class="btn-menu" onmouseover="goToWhite(2)" onmouseout="goToBlack(2)">
+                    <div>
+                        <img id="quotes" src="../images/Quotes.png" alt="Quotes">
+                        <p>Quotes</p>
+                    </div>
+                </div>
+            </a>
+
+            <!--Button Menu-->
+            <a href="#" data-toggle="modal" data-target="#about">
+                <div class="btn-menu" onmouseover="goToWhite(3)" onmouseout="goToBlack(3)">
+                    <div>
+                        <img id="aboutUs" src="../images/AboutUs.png" alt="About Us">
+                        <p>About Us</p>
+                    </div>
+                </div>
+            </a>
+
+            <!--Button Menu-->
+            <a href="#" data-toggle="modal" data-target="#privacyModal">
+                <div class="btn-menu" onmouseover="goToWhite(4)" onmouseout="goToBlack(4)">
+                    <div>
+                        <img id="privacy" src="../images/Privacy.png" alt="Privacy">
+                        <p>Privacy</p>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+

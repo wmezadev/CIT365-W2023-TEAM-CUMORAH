@@ -5,68 +5,77 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Quote</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Quote.CustomerName" class="control-label"></label>
-                <input asp-for="Quote.CustomerName" class="form-control" />
-                <span asp-validation-for="Quote.CustomerName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Quote.Width" class="control-label"></label>
-                <input asp-for="Quote.Width" class="form-control" />
-                <span asp-validation-for="Quote.Width" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Quote.Height" class="control-label"></label>
-                <input asp-for="Quote.Height" class="form-control" />
-                <span asp-validation-for="Quote.Height" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Quote.SurfaceMaterial" class="control-label"></label>
-                <select asp-for="Quote.SurfaceMaterial" class="form-control">
-                    @foreach (DeskQuote.SurfaceMaterial item in Enum.GetValues(typeof(DeskQuote.SurfaceMaterial)))
-                    {
-                        <option value="@item">@item</option>
-                    }
-                </select>
-                <span asp-validation-for="Quote.SurfaceMaterial" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Quote.Drawer" class="control-label"></label>
-                <select asp-for="Quote.Drawer" class="form-control">
-                    @for (int i = 0; i < 8; i++)
-                    {
-                        <option value="@i">@i</option>
-                    }
-                </select>
-                <span asp-validation-for="Quote.Drawer" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Quote.ProductionTime" class="control-label"></label>
-                <select asp-for="Quote.ProductionTime" class="form-control">
-                @foreach(var rushDay in DeskQuote.RushDayOptions)
-                {
-                    <option value="@rushDay">@rushDay</option>
-                }
-                </select>
-                <span asp-validation-for="Quote.ProductionTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<!--Gray Zone-->
+<div class="gray-zone flex-center">
+    <div class="container-desktop">
+        <img id="desktop-material" src="../images/Pine.png" alt="Desktop">
+        <img id="desktop-drawers" src="../images/drawer-0.png" alt="Drawers">
     </div>
 </div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
+
+<!--Yellow Zone-->
+<div class="yellow-zone">
+    <div class="menu-container">
+        <div class="form-cont">
+            <h1>New Quote</h1>
+            <div class="navegation">
+                <a asp-page="/Index">Back to Home</a>
+            </div>
+
+            <form class="form-inputs" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Quote.CustomerName" class="control-label"></label>
+                    <input asp-for="Quote.CustomerName" class="form-control" />
+                    <span asp-validation-for="Quote.CustomerName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Quote.Width" class="control-label"></label>
+                    <input asp-for="Quote.Width" class="form-control" />
+                    <span asp-validation-for="Quote.Width" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Quote.Height" class="control-label"></label>
+                    <input asp-for="Quote.Height" class="form-control" />
+                    <span asp-validation-for="Quote.Height" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Quote.SurfaceMaterial" class="control-label"></label>
+                    <select asp-for="Quote.SurfaceMaterial" class="form-control" id="material" onchange="changeMaterial()">
+                        @foreach (DeskQuote.SurfaceMaterial item in Enum.GetValues(typeof(DeskQuote.SurfaceMaterial)))
+                        {
+                            <option value="@item">@item</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Quote.SurfaceMaterial" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Quote.Drawer" class="control-label"></label>
+                    <select asp-for="Quote.Drawer" class="form-control" id="drawers" onchange="changeDrawers()">
+                        @for (int i = 0; i < 8; i++)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Quote.Drawer" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Quote.ProductionTime" class="control-label"></label>
+                    <select asp-for="Quote.ProductionTime" class="form-control">
+                        @foreach (var rushDay in DeskQuote.RushDayOptions)
+                        {
+                            <option value="@rushDay">@rushDay</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Quote.ProductionTime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create Quote" class="btn-standar" />
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

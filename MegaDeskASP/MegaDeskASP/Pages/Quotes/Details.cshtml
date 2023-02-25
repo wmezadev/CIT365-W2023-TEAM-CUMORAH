@@ -5,63 +5,80 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>Quote</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Quote.CustomerName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Quote.CustomerName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Quote.Width)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Quote.Width)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Quote.Height)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Quote.Height)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Quote.SurfaceMaterial)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Quote.SurfaceMaterial)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Quote.Drawer)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Quote.Drawer)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Quote.ProductionTime)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Quote.ProductionTime)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Quote.DateCreated)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Quote.DateCreated)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Quote.Price)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Quote.Price)
-        </dd>
-    </dl>
+<!--Gray Zone-->
+<div class="gray-zone flex-center" onload="CheckDesktop()">
+    <div class="container-desktop">
+        <img id="desktop-material" src="/images/Pine.png" alt="Desktop">
+        <img id="desktop-drawers" src="/images/drawer-0.png" alt="Drawers">
+    </div>
 </div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Quote?.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+
+
+<!--Yellow Zone-->
+<div class="yellow-zone">
+    <div class="menu-container">
+        <div class="form-cont">
+            <h1>Details</h1>
+            <div class="navegation">
+                <a asp-page="./Edit" asp-route-id="@Model.Quote?.Id">Edit</a> |
+                <a asp-page="/Quotes/Index">Back to List</a>
+            </div>
+            <div class="flex-center">
+                <dl class="cont-table">
+                    <dt class="col-sm-6">
+                        @Html.DisplayNameFor(model => model.Quote.CustomerName)
+                    </dt>
+                    <dd class="col-12">
+                        @Html.DisplayFor(model => model.Quote.CustomerName)
+                    </dd>
+                    <dt class="col-12">
+                        @Html.DisplayNameFor(model => model.Quote.Width)
+                    </dt>
+                    <dd class="col-12">
+                        @Html.DisplayFor(model => model.Quote.Width)
+                    </dd>
+                    <dt class="col-12">
+                        @Html.DisplayNameFor(model => model.Quote.Height)
+                    </dt>
+                    <dd class="col-12">
+                        @Html.DisplayFor(model => model.Quote.Height)
+                    </dd>
+                    <dt class="col-12">
+                        @Html.DisplayNameFor(model => model.Quote.SurfaceMaterial)
+                    </dt>
+                    <dd class="col-12">
+                        @Html.DisplayFor(model => model.Quote.SurfaceMaterial)
+                    </dd>
+                    <dt class="col-12">
+                        @Html.DisplayNameFor(model => model.Quote.Drawer)
+                    </dt>
+                    <dd class="col-12">
+                        @Html.DisplayFor(model => model.Quote.Drawer)
+                    </dd>
+                    <dt class="col-12">
+                        @Html.DisplayNameFor(model => model.Quote.ProductionTime)
+                    </dt>
+                    <dd class="col-12">
+                        @Html.DisplayFor(model => model.Quote.ProductionTime)
+                    </dd>
+                    <dt class="col-12">
+                        @Html.DisplayNameFor(model => model.Quote.DateCreated)
+                    </dt>
+                    <dd class="col-12">
+                        @Html.DisplayFor(model => model.Quote.DateCreated)
+                    </dd>
+                    <dt class="col-12">
+                        @Html.DisplayNameFor(model => model.Quote.Price)
+                    </dt>
+                    <dd class="col-12">
+                        @Html.DisplayFor(model => model.Quote.Price)
+                    </dd>
+                </dl>
+
+                <!--Use this inputs to get the material and drawers values and drawing the desk-->
+                <input type="text" class="hidden-field" id="material" value="@Html.DisplayFor(model => model.Quote.SurfaceMaterial)" />
+                <input type="text" class="hidden-field" id="drawers" value="@Html.DisplayFor(model => model.Quote.Drawer)" />
+            </div>
+        </div>
+    </div>
 </div>
