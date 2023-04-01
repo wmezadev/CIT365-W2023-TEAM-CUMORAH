@@ -20,11 +20,22 @@ namespace SacramentMeetingPlanner.Controllers
         }
 
         // GET: Planners
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-              return _context.Planner != null ? 
-                          View(await _context.Planner.ToListAsync()) :
-                          Problem("Entity set 'SacramentMeetingPlannerContext.Planner'  is null.");
+            if (_context.Planner == null)
+            {
+                return Problem("Entity set 'MvcMovieContext.Movie'  is null.");
+            }
+
+            var planners = from m in _context.Planner
+                         select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                planners = planners.Where(s => s.SpeakerSubject!.Contains(searchString));
+            }
+
+            return View(await planners.ToListAsync());
         }
 
         // GET: Planners/Details/5
