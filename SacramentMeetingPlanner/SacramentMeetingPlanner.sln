@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SacramentMeetingPlanner", "SacramentMeetingPlanner\SacramentMeetingPlanner.csproj", "{B5EBAD7A-1E72-465D-8A52-E4C45A10D575}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SacramentMeetingPlanner", "SacramentMeetingPlanner\SacramentMeetingPlanner.csproj", "{1D2E0ACC-9A63-43CB-95F9-AA0251BE05D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B5EBAD7A-1E72-465D-8A52-E4C45A10D575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B5EBAD7A-1E72-465D-8A52-E4C45A10D575}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B5EBAD7A-1E72-465D-8A52-E4C45A10D575}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B5EBAD7A-1E72-465D-8A52-E4C45A10D575}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D2E0ACC-9A63-43CB-95F9-AA0251BE05D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D2E0ACC-9A63-43CB-95F9-AA0251BE05D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D2E0ACC-9A63-43CB-95F9-AA0251BE05D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D2E0ACC-9A63-43CB-95F9-AA0251BE05D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {418C9336-C724-4CDA-9EEA-70F1BCFC9E60}
+		SolutionGuid = {D941DC25-DFAB-4F31-A2E8-3A8FEC596664}
 	EndGlobalSection
 EndGlobal
