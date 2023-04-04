@@ -26,6 +26,11 @@ public static class SeedData
                 return;   // DB has been seeded
             }
 
+            if (context.Speaker.Any())
+            {
+                return;   // DB has been seeded
+            }
+
             context.Planner.AddRange(
                 new Planner
                 {
@@ -116,6 +121,25 @@ public static class SeedData
                 new SpeachTopic
                 {
                     TopicName = "Zion"
+                }
+            );
+
+            context.Speaker.AddRange(
+                new Speaker
+                {
+                    FullName = "Anderson Gil"
+                },
+                new Speaker
+                {
+                    FullName = "Arturo Ocampon"
+                },
+                new Speaker
+                {
+                    FullName = "Jose Alarcon"
+                },
+                new Speaker
+                {
+                    FullName = "William Meza"
                 }
             );
 

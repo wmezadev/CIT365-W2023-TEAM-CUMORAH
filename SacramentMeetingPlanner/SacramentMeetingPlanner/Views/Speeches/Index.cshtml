@@ -1,0 +1,48 @@
+﻿@model IEnumerable<SacramentMeetingPlanner.Models.Speach>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<form asp-controller="Speeches" asp-action="Index">
+    <p>
+        Speaker subject: <input type="text" name="speakerSubject" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Planner)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Speaker)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SpeachTopic)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Planner.MeetingDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Speaker.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpeachTopic.TopicName)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
