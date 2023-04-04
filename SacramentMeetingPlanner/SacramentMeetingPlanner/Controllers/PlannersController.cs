@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -69,12 +71,44 @@ namespace SacramentMeetingPlanner.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,MeetingDate,ConductingLeader,OpeningSong,OpeningPray,SacramentHymn,SpeakerSubject,ClosingSong,ClosingPray")] Planner planner)
+        public async Task<IActionResult> Create([Bind("Id,MeetingDate,PresideLeader,ConductingLeader,OpeningSong,OpeningPray,SacramentHymn,SpeakerSubject,ClosingSong,ClosingPray")] Planner planner, IFormCollection formData)
         {
+            ViewBag.Speakers = _context.Speaker.ToList();
+            ViewBag.SpeachTopics = _context.SpeachTopic.ToList();
             if (ModelState.IsValid)
             {
                 _context.Add(planner);
                 await _context.SaveChangesAsync();
+                var speechesData = formData.Where(x => x.Key.StartsWith("Speeches"));
+                var speeches = new List<Speach>();
+
+                for (int i = 0; i < speechesData.Count() / 2; i++)
+                {
+                    string speakerIdKey = $"Speeches[{i}].SpeakerId";
+                    string speachTopicIdKey = $"Speeches[{i}].SpeachTopicId";
+
+                    if (formData.TryGetValue(speakerIdKey, out var speakerIdValue) && formData.TryGetValue(speachTopicIdKey, out var speachTopicIdValue))
+                    {
+                        int.TryParse(speakerIdValue, out int speakerId);
+                        int.TryParse(speachTopicIdValue, out int speachTopicId);
+
+                        var speech = new Speach
+                        {
+                            SpeakerId = speakerId,
+                            SpeachTopicId = speachTopicId,
+                            PlannerId = planner.Id
+                        };
+                        speeches.Add(speech);
+                    }
+                }
+
+                foreach (var speech in speeches)
+                {
+                    _context.Add(speech);
+                }
+
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             return View(planner);
@@ -93,6 +127,8 @@ namespace SacramentMeetingPlanner.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Speakers = _context.Speaker.ToList();
+            ViewBag.SpeachTopics = _context.SpeachTopic.ToList();
             return View(planner);
         }
 
@@ -101,7 +137,7 @@ namespace SacramentMeetingPlanner.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,MeetingDate,ConductingLeader,OpeningSong,OpeningPray,SacramentHymn,SpeakerSubject,ClosingSong,ClosingPray")] Planner planner)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,MeetingDate,PresideLeader,ConductingLeader,OpeningSong,OpeningPray,SacramentHymn,SpeakerSubject,ClosingSong,ClosingPray")] Planner planner)
         {
             if (id != planner.Id)
             {
@@ -128,6 +164,8 @@ namespace SacramentMeetingPlanner.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.Speakers = _context.Speaker.ToList();
+            ViewBag.SpeachTopics = _context.SpeachTopic.ToList();
             return View(planner);
         }
 
@@ -141,6 +179,8 @@ namespace SacramentMeetingPlanner.Controllers
 
             var planner = await _context.Planner
                 .FirstOrDefaultAsync(m => m.Id == id);
+            ViewBag.Speakers = _context.Speaker.ToList();
+            ViewBag.SpeachTopics = _context.SpeachTopic.ToList();
             if (planner == null)
             {
                 return NotFound();
@@ -159,6 +199,8 @@ namespace SacramentMeetingPlanner.Controllers
                 return Problem("Entity set 'SacramentMeetingPlannerContext.Planner'  is null.");
             }
             var planner = await _context.Planner.FindAsync(id);
+            ViewBag.Speakers = _context.Speaker.ToList();
+            ViewBag.SpeachTopics = _context.SpeachTopic.ToList();
             if (planner != null)
             {
                 _context.Planner.Remove(planner);
