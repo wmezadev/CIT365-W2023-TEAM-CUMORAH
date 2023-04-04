@@ -10,100 +10,87 @@ using SacramentMeetingPlanner.Models;
 
 namespace SacramentMeetingPlanner.Controllers
 {
-    public class PlannersController : Controller
+    public class SpeakersController : Controller
     {
         private readonly SacramentMeetingPlannerContext _context;
 
-        public PlannersController(SacramentMeetingPlannerContext context)
+        public SpeakersController(SacramentMeetingPlannerContext context)
         {
             _context = context;
         }
 
-        // GET: Planners
-        public async Task<IActionResult> Index(string searchString)
+        // GET: Speakers
+        public async Task<IActionResult> Index()
         {
-            if (_context.Planner == null)
-            {
-                return Problem("Entity set 'MvcMovieContext.Movie'  is null.");
-            }
-
-            var planners = from m in _context.Planner
-                         select m;
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                planners = planners.Where(s => s.SpeakerSubject!.Contains(searchString));
-            }
-
-            return View(await planners.ToListAsync());
+            return _context.Speaker != null ?
+                        View(await _context.Speaker.ToListAsync()) :
+                        Problem("Entity set 'SacramentMeetingPlannerContext.Speaker'  is null.");
         }
 
-        // GET: Planners/Details/5
+        // GET: Speakers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Planner == null)
+            if (id == null || _context.Speaker == null)
             {
                 return NotFound();
             }
 
-            var planner = await _context.Planner
+            var speaker = await _context.Speaker
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (planner == null)
+            if (speaker == null)
             {
                 return NotFound();
             }
 
-            return View(planner);
+            return View(speaker);
         }
 
-        // GET: Planners/Create
+        // GET: Speakers/Create
         public IActionResult Create()
         {
-            ViewBag.Speakers = _context.Speaker.ToList();
-            ViewBag.SpeachTopics = _context.SpeachTopic.ToList();
             return View();
         }
 
-        // POST: Planners/Create
+        // POST: Speakers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,MeetingDate,ConductingLeader,OpeningSong,OpeningPray,SacramentHymn,SpeakerSubject,ClosingSong,ClosingPray")] Planner planner)
+        public async Task<IActionResult> Create([Bind("Id,FullName")] Speaker speaker)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(planner);
+                _context.Add(speaker);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(planner);
+            return View(speaker);
         }
 
-        // GET: Planners/Edit/5
+        // GET: Speakers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Planner == null)
+            if (id == null || _context.Speaker == null)
             {
                 return NotFound();
             }
 
-            var planner = await _context.Planner.FindAsync(id);
-            if (planner == null)
+            var speaker = await _context.Speaker.FindAsync(id);
+            if (speaker == null)
             {
                 return NotFound();
             }
-            return View(planner);
+            return View(speaker);
         }
 
-        // POST: Planners/Edit/5
+        // POST: Speakers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,MeetingDate,ConductingLeader,OpeningSong,OpeningPray,SacramentHymn,SpeakerSubject,ClosingSong,ClosingPray")] Planner planner)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FullName")] Speaker speaker)
         {
-            if (id != planner.Id)
+            if (id != speaker.Id)
             {
                 return NotFound();
             }
@@ -112,12 +99,12 @@ namespace SacramentMeetingPlanner.Controllers
             {
                 try
                 {
-                    _context.Update(planner);
+                    _context.Update(speaker);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PlannerExists(planner.Id))
+                    if (!SpeakerExists(speaker.Id))
                     {
                         return NotFound();
                     }
@@ -128,49 +115,49 @@ namespace SacramentMeetingPlanner.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(planner);
+            return View(speaker);
         }
 
-        // GET: Planners/Delete/5
+        // GET: Speakers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Planner == null)
+            if (id == null || _context.Speaker == null)
             {
                 return NotFound();
             }
 
-            var planner = await _context.Planner
+            var speaker = await _context.Speaker
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (planner == null)
+            if (speaker == null)
             {
                 return NotFound();
             }
 
-            return View(planner);
+            return View(speaker);
         }
 
-        // POST: Planners/Delete/5
+        // POST: Speakers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Planner == null)
+            if (_context.Speaker == null)
             {
-                return Problem("Entity set 'SacramentMeetingPlannerContext.Planner'  is null.");
+                return Problem("Entity set 'SacramentMeetingPlannerContext.Speaker'  is null.");
             }
-            var planner = await _context.Planner.FindAsync(id);
-            if (planner != null)
+            var speaker = await _context.Speaker.FindAsync(id);
+            if (speaker != null)
             {
-                _context.Planner.Remove(planner);
+                _context.Speaker.Remove(speaker);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PlannerExists(int id)
+        private bool SpeakerExists(int id)
         {
-          return (_context.Planner?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Speaker?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Create";
+    var speakers = ViewBag.Speakers as List<Speaker>;
+    var speachTopics = ViewBag.SpeachTopics as List<SpeachTopic>;
 }
 
 <h1>Create</h1>
@@ -10,7 +12,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="MeetingDate" class="control-label"></label>
@@ -47,6 +49,55 @@
                 <input asp-for="SpeakerSubject" class="form-control" />
                 <span asp-validation-for="SpeakerSubject" class="text-danger"></span>
             </div>
+            <!-- Start of speeches section -->
+            <div class="form-group">
+                <h4>Speeches</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Speakers
+                            </th>
+                            <th>
+                                Topics
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="speeches-container">
+                    </tbody>
+                </table>
+                <button id="add-speach" class="btn btn-primary" type="button">Add Speech</button>
+                <!-- Speach Template -->
+                <table style="display:none;">
+                    <tbody id="speech-template">
+                        <tr>
+                            <td>
+                                <select name="Speeches[__counterId__].SpeakerId" class="form-control">
+                                    <option value="">-- Select a Speaker --</option>
+                                    @foreach (var speaker in speakers)
+                                    {
+                                        <option value="@speaker.Id">@speaker.FullName</option>
+                                    }
+                                </select>
+                            </td>
+                            <td>
+                                <select name="Speeches[__counterId__].SpeachTopicId" class="form-control">
+                                    <option value="">-- Select a Topic --</option>
+                                    @foreach (var speachTopic in speachTopics)
+                                    {
+                                        <option value="@speachTopic.Id">@speachTopic.TopicName</option>
+                                    }
+                                </select>
+                            </td>
+                            <td>
+                                <a href="#" class="remove-speech">Remove</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- End of speeches section -->
             <div class="form-group">
                 <label asp-for="ClosingSong" class="control-label"></label>
                 <input asp-for="ClosingSong" class="form-control" />
@@ -70,4 +121,24 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function() {
+            var counter = 0;
+            function addSpeach () {
+                var $template = $('#speech-template'),
+                    $speechesContainer = $('#speeches-container');
+                counter++;
+                var templateHtml = $template.html().replace(/__counterId__/g, counter);
+                $speechesContainer.append(templateHtml);
+            }
+            addSpeach();
+            $('#add-speach').click(addSpeach);
+
+            // Remove Speech
+            $('#speeches-container').on('click', '.remove-speech', function () {
+                var $row = $(this).closest('tr');
+                $row.remove();
+            });
+        });
+    </script>
 }

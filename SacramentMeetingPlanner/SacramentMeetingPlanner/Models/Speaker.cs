@@ -11,6 +11,5 @@ namespace SacramentMeetingPlanner.Models
         [Display(Name = "Speaker Name")]
         [Required]
         public string? FullName { get; set; }
-        public ICollection<Speach> Speeches { get; set; }
     }
 }

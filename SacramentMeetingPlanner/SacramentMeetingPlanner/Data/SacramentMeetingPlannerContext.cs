@@ -23,20 +23,6 @@ namespace SacramentMeetingPlanner.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Speaker>()
-                .HasMany(s => s.Speeches)
-                .WithOne(s => s.Speaker)
-                .HasForeignKey(s => s.SpeakerId);
-
-            modelBuilder.Entity<Planner>()
-                .HasMany(s => s.Speeches);
-
-            // Define the many-to-many relationship between Speech and SpeechTopic
-            modelBuilder.Entity<Speach>()
-                .HasOne(s => s.Planner);
-
-            modelBuilder.Entity<Speach>()
-                .HasOne(s => s.Speaker);
         }
     }
 }
