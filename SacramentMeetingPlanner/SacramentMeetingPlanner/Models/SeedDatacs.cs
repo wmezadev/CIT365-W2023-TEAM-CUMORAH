@@ -35,7 +35,6 @@ public static class SeedData
                     OpeningSong = 84,
                     OpeningPray = "Mario Castaneda",
                     SacramentHymn = 120,
-                    SpeakerSubject = "The holypath covenant",
                     ClosingSong = 102,
                     ClosingPray = "Luigi"
                 },
@@ -47,7 +46,6 @@ public static class SeedData
                     OpeningSong = 50,
                     OpeningPray = "Samuel Umtiti",
                     SacramentHymn = 06,
-                    SpeakerSubject = "The Sabbath Day",
                     ClosingSong = 50,
                     ClosingPray = "Carla Mariano"
                 },
@@ -59,7 +57,6 @@ public static class SeedData
                     OpeningSong = 44,
                     OpeningPray = "Daniel Osma",
                     SacramentHymn = 135,
-                    SpeakerSubject = "Thiting",
                     ClosingSong = 113,
                     ClosingPray = "Maria Balde"
                 },
@@ -71,7 +68,6 @@ public static class SeedData
                     OpeningSong = 05,
                     OpeningPray = "Andry Cortizo",
                     SacramentHymn = 60,
-                    SpeakerSubject = "The law of chastity",
                     ClosingSong = 120,
                     ClosingPray = "Carla Martinez"
                 }

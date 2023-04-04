@@ -34,7 +34,7 @@ namespace SacramentMeetingPlanner.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                planners = planners.Where(s => s.SpeakerSubject!.Contains(searchString));
+                planners = planners.Where(s => s.PresideLeader.Contains(searchString));
             }
 
             return View(await planners.ToListAsync());
@@ -71,7 +71,7 @@ namespace SacramentMeetingPlanner.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,MeetingDate,PresideLeader,ConductingLeader,OpeningSong,OpeningPray,SacramentHymn,SpeakerSubject,ClosingSong,ClosingPray")] Planner planner, IFormCollection formData)
+        public async Task<IActionResult> Create([Bind("Id,MeetingDate,PresideLeader,ConductingLeader,OpeningSong,OpeningPray,SacramentHymn,ClosingSong,ClosingPray")] Planner planner, IFormCollection formData)
         {
             ViewBag.Speakers = _context.Speaker.ToList();
             ViewBag.SpeachTopics = _context.SpeachTopic.ToList();
@@ -137,7 +137,7 @@ namespace SacramentMeetingPlanner.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,MeetingDate,PresideLeader,ConductingLeader,OpeningSong,OpeningPray,SacramentHymn,SpeakerSubject,ClosingSong,ClosingPray")] Planner planner, IFormCollection formData)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,MeetingDate,PresideLeader,ConductingLeader,OpeningSong,OpeningPray,SacramentHymn,ClosingSong,ClosingPray")] Planner planner, IFormCollection formData)
         {
             if (id != planner.Id)
             {
