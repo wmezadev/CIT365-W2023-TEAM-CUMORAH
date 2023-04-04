@@ -42,6 +42,7 @@ namespace SacramentMeetingPlanner.Models
         [RegularExpression(@"^[a-zA-Z-0-9\s-]*$")]
         [Required]
         public string? SpeakerSubject { get; set; }
+        public ICollection<Speach> Speeches { get; set; }
 
         [Display(Name = "Closing Song")]
         [Range(1, 300)]
