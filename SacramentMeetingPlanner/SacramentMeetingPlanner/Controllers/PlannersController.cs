@@ -34,7 +34,7 @@ namespace SacramentMeetingPlanner.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                planners = planners.Where(s => s.SpeakerSubject!.Contains(searchString));
+                planners = planners.Where(s => s.PresideLeader.Contains(searchString));
             }
 
             return View(await planners.ToListAsync());
@@ -71,7 +71,7 @@ namespace SacramentMeetingPlanner.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,MeetingDate,PresideLeader,ConductingLeader,OpeningSong,OpeningPray,SacramentHymn,SpeakerSubject,ClosingSong,ClosingPray")] Planner planner, IFormCollection formData)
+        public async Task<IActionResult> Create([Bind("Id,MeetingDate,PresideLeader,ConductingLeader,OpeningSong,OpeningPray,SacramentHymn,ClosingSong,ClosingPray")] Planner planner, IFormCollection formData)
         {
             ViewBag.Speakers = _context.Speaker.ToList();
             ViewBag.SpeachTopics = _context.SpeachTopic.ToList();
@@ -122,7 +122,7 @@ namespace SacramentMeetingPlanner.Controllers
                 return NotFound();
             }
 
-            var planner = await _context.Planner.FindAsync(id);
+            var planner = await _context.Planner.Include(p => p.Speeches).FirstOrDefaultAsync(p => p.Id == id);
             if (planner == null)
             {
                 return NotFound();
@@ -137,7 +137,7 @@ namespace SacramentMeetingPlanner.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,MeetingDate,PresideLeader,ConductingLeader,OpeningSong,OpeningPray,SacramentHymn,SpeakerSubject,ClosingSong,ClosingPray")] Planner planner)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,MeetingDate,PresideLeader,ConductingLeader,OpeningSong,OpeningPray,SacramentHymn,ClosingSong,ClosingPray")] Planner planner, IFormCollection formData)
         {
             if (id != planner.Id)
             {
@@ -149,6 +149,40 @@ namespace SacramentMeetingPlanner.Controllers
                 try
                 {
                     _context.Update(planner);
+                    await _context.SaveChangesAsync();
+
+                    var speechesData = formData.Where(x => x.Key.StartsWith("Speeches"));
+                    var speeches = new List<Speach>();
+
+                    for (int i = 0; i < speechesData.Count() / 2; i++)
+                    {
+                        string speakerIdKey = $"Speeches[{i}].SpeakerId";
+                        string speachTopicIdKey = $"Speeches[{i}].SpeachTopicId";
+
+                        if (formData.TryGetValue(speakerIdKey, out var speakerIdValue) && formData.TryGetValue(speachTopicIdKey, out var speachTopicIdValue))
+                        {
+                            int.TryParse(speakerIdValue, out int speakerId);
+                            int.TryParse(speachTopicIdValue, out int speachTopicId);
+
+                            var speech = new Speach
+                            {
+                                SpeakerId = speakerId,
+                                SpeachTopicId = speachTopicId,
+                                PlannerId = planner.Id
+                            };
+                            speeches.Add(speech);
+                        }
+                    }
+
+                    var existingSpeeches = _context.Speach.Where(s => s.PlannerId == planner.Id);
+                    _context.Speach.RemoveRange(existingSpeeches);
+                    await _context.SaveChangesAsync();
+
+                    foreach (var speech in speeches)
+                    {
+                        _context.Add(speech);
+                    }
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
