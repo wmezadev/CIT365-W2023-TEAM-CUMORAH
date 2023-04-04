@@ -20,6 +20,12 @@ public static class SeedData
             {
                 return;   // DB has been seeded
             }
+
+            if (context.SpeachTopic.Any())
+            {
+                return;   // DB has been seeded
+            }
+
             context.Planner.AddRange(
                 new Planner
                 {
@@ -70,6 +76,53 @@ public static class SeedData
                     ClosingPray = "Carla Martinez"
                 }
             );
+
+            context.SpeachTopic.AddRange(
+                new SpeachTopic { 
+                    TopicName = "Atonement" 
+                },
+                new SpeachTopic
+                {
+                    TopicName = "Baptism"
+                },
+                new SpeachTopic
+                {
+                    TopicName = "Charity"
+                },
+                new SpeachTopic
+                {
+                    TopicName = "Faith"
+                },
+                new SpeachTopic
+                {
+                    TopicName = "Forgiveness"
+                },
+                new SpeachTopic
+                {
+                    TopicName = "Hope"
+                },
+                new SpeachTopic
+                {
+                    TopicName = "Missionary Work"
+                },
+                new SpeachTopic
+                {
+                    TopicName = "Repentance"
+                },
+                new SpeachTopic
+                {
+                    TopicName = "Service"
+                },
+                new SpeachTopic
+                {
+                    TopicName = "Temple"
+                },
+                new SpeachTopic
+                {
+                    TopicName = "Zion"
+                }
+            );
+
             context.SaveChanges();
         }
     }

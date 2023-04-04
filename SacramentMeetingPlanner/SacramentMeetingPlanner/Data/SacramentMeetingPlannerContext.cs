@@ -15,5 +15,14 @@ namespace SacramentMeetingPlanner.Data
         }
 
         public DbSet<SacramentMeetingPlanner.Models.Planner> Planner { get; set; } = default!;
+        public DbSet<SacramentMeetingPlanner.Models.SpeachTopic> SpeachTopic { get; set; }
+        public DbSet<SacramentMeetingPlanner.Models.Speaker> Speaker { get; set; }
+        public DbSet<SacramentMeetingPlanner.Models.Speach> Speach { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+        }
     }
 }
