@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Runtime.Intrinsics.X86;
-using System.Threading.Tasks;
+﻿using System.Collections.Immutable;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SacramentMeetingPlanner.Data;
 using SacramentMeetingPlanner.Models;
@@ -26,7 +20,7 @@ namespace SacramentMeetingPlanner.Controllers
         {
             if (_context.Planner == null)
             {
-                return Problem("Entity set 'MvcMovieContext.Movie'  is null.");
+                return Problem("Entity set 'MvcMovieContext.Movie' is null.");
             }
 
             var planners = from m in _context.Planner
@@ -84,20 +78,9 @@ namespace SacramentMeetingPlanner.Controllers
 
                 for (int i = 0; i < speechesData.Count() / 2; i++)
                 {
-                    string speakerIdKey = $"Speeches[{i}].SpeakerId";
-                    string speachTopicIdKey = $"Speeches[{i}].SpeachTopicId";
-
-                    if (formData.TryGetValue(speakerIdKey, out var speakerIdValue) && formData.TryGetValue(speachTopicIdKey, out var speachTopicIdValue))
+                    var speech = GenerateSpeach(i, formData, planner);
+                    if (speech != null)
                     {
-                        int.TryParse(speakerIdValue, out int speakerId);
-                        int.TryParse(speachTopicIdValue, out int speachTopicId);
-
-                        var speech = new Speach
-                        {
-                            SpeakerId = speakerId,
-                            SpeachTopicId = speachTopicId,
-                            PlannerId = planner.Id
-                        };
                         speeches.Add(speech);
                     }
                 }
@@ -156,21 +139,11 @@ namespace SacramentMeetingPlanner.Controllers
 
                     for (int i = 0; i < speechesData.Count() / 2; i++)
                     {
-                        string speakerIdKey = $"Speeches[{i}].SpeakerId";
-                        string speachTopicIdKey = $"Speeches[{i}].SpeachTopicId";
-
-                        if (formData.TryGetValue(speakerIdKey, out var speakerIdValue) && formData.TryGetValue(speachTopicIdKey, out var speachTopicIdValue))
+                        var speech = GenerateSpeach(i, formData, planner);
+                        if (speech != null)
                         {
-                            int.TryParse(speakerIdValue, out int speakerId);
-                            int.TryParse(speachTopicIdValue, out int speachTopicId);
-
-                            var speech = new Speach
-                            {
-                                SpeakerId = speakerId,
-                                SpeachTopicId = speachTopicId,
-                                PlannerId = planner.Id
-                            };
                             speeches.Add(speech);
+
                         }
                     }
 
@@ -248,5 +221,32 @@ namespace SacramentMeetingPlanner.Controllers
         {
           return (_context.Planner?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        #region Helpers
+
+        private Speach? GenerateSpeach(int i, IFormCollection formData, Planner planner)
+        {
+            string speakerIdKey = $"Speeches[{i}].SpeakerId";
+            string speachTopicIdKey = $"Speeches[{i}].SpeachTopicId";
+
+            if (formData.TryGetValue(speakerIdKey, out var speakerIdValue) && formData.TryGetValue(speachTopicIdKey, out var speachTopicIdValue))
+            {
+                int.TryParse(speakerIdValue, out int speakerId);
+                int.TryParse(speachTopicIdValue, out int speachTopicId);
+                
+                var speech = new Speach
+                {
+                    SpeakerId = speakerId,
+                    SpeachTopicId = speachTopicId,
+                    PlannerId = planner.Id
+                };
+                // speeches.Add(speech);
+                return speech;
+            }
+
+            return null;
+           
+        }
+        #endregion
     }
 }
