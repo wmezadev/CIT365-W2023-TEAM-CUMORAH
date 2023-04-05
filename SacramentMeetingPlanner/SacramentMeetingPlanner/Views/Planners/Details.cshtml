@@ -50,31 +50,37 @@
             @Html.DisplayNameFor(model => model.Speeches)
         </dt>
         <dd class="col-sm-10">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Speeches.FirstOrDefault().Speaker)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Speeches.FirstOrDefault().SpeachTopic)
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Speeches)
-                    {
+            @if (Model.Speeches != null && Model.Speeches.Count > 0)
+            {
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Speaker.FullName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.SpeachTopic.TopicName)
-                            </td>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Speeches.FirstOrDefault().Speaker)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Speeches.FirstOrDefault().SpeachTopic)
+                            </th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Speeches)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Speaker.FullName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SpeachTopic.TopicName)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            } else
+            {
+                <span>No speeches</span>
+            }
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ClosingSong)
