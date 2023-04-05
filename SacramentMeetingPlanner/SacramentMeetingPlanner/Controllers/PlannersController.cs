@@ -23,12 +23,13 @@ namespace SacramentMeetingPlanner.Controllers
                 return Problem("Entity set 'MvcMovieContext.Movie' is null.");
             }
 
-            var planners = from m in _context.Planner
-                         select m;
+            var planners = _context.Planner
+                            .Include(p => p.Speeches).ThenInclude(s => s.Speaker)
+                            .Include(p => p.Speeches).ThenInclude(s => s.SpeachTopic).AsQueryable();
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                planners = planners.Where(s => s.PresideLeader.Contains(searchString));
+                planners = planners.Where(p => p.Speeches.Any(s => s.Speaker.FullName.Contains(searchString)));
             }
 
             return View(await planners.ToListAsync());
@@ -43,6 +44,9 @@ namespace SacramentMeetingPlanner.Controllers
             }
 
             var planner = await _context.Planner
+                .Include("Speeches")
+                .Include("Speeches.Speaker")
+                .Include("Speeches.SpeachTopic")
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (planner == null)
             {
