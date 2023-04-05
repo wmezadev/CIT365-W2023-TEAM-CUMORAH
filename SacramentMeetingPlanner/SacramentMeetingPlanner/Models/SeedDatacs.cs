@@ -31,53 +31,6 @@ public static class SeedData
                 return;   // DB has been seeded
             }
 
-            context.Planner.AddRange(
-                new Planner
-                {
-                    MeetingDate = DateTime.Parse("1984-3-13"),
-                    PresideLeader = "William Meza",
-                    ConductingLeader = "Jose Alarcon",
-                    OpeningSong = 84,
-                    OpeningPray = "Mario Castaneda",
-                    SacramentHymn = 120,
-                    ClosingSong = 102,
-                    ClosingPray = "Luigi"
-                },
-                new Planner
-                {
-                    MeetingDate = DateTime.Parse("2023-3-13"),
-                    PresideLeader = "Julio Panson",
-                    ConductingLeader = "Estefan Quiroz",
-                    OpeningSong = 50,
-                    OpeningPray = "Samuel Umtiti",
-                    SacramentHymn = 06,
-                    ClosingSong = 50,
-                    ClosingPray = "Carla Mariano"
-                },
-                new Planner
-                {
-                    MeetingDate = DateTime.Parse("2022-8-25"),
-                    PresideLeader = "Santiago Ortigoza",
-                    ConductingLeader = "Emiliano Martinez",
-                    OpeningSong = 44,
-                    OpeningPray = "Daniel Osma",
-                    SacramentHymn = 135,
-                    ClosingSong = 113,
-                    ClosingPray = "Maria Balde"
-                },
-                new Planner
-                {
-                    MeetingDate = DateTime.Parse("2020-5-10"),
-                    PresideLeader = "Emilio Ortega",
-                    ConductingLeader = "Juan Quiroz",
-                    OpeningSong = 05,
-                    OpeningPray = "Andry Cortizo",
-                    SacramentHymn = 60,
-                    ClosingSong = 120,
-                    ClosingPray = "Carla Martinez"
-                }
-            );
-
             context.SpeachTopic.AddRange(
                 new SpeachTopic { 
                     TopicName = "Atonement" 
@@ -140,6 +93,91 @@ public static class SeedData
                 new Speaker
                 {
                     FullName = "William Meza"
+                }
+            );
+
+            context.Planner.AddRange(
+                new Planner
+                {
+                    MeetingDate = DateTime.Parse("1984-3-13"),
+                    PresideLeader = "William Meza",
+                    ConductingLeader = "Jose Alarcon",
+                    OpeningSong = 84,
+                    OpeningPray = "Mario Castaneda",
+                    SacramentHymn = 120,
+                    ClosingSong = 102,
+                    ClosingPray = "Luigi"
+                },
+                new Planner
+                {
+                    MeetingDate = DateTime.Parse("2023-3-13"),
+                    PresideLeader = "Julio Panson",
+                    ConductingLeader = "Estefan Quiroz",
+                    OpeningSong = 50,
+                    OpeningPray = "Samuel Umtiti",
+                    SacramentHymn = 06,
+                    ClosingSong = 50,
+                    ClosingPray = "Carla Mariano"
+                },
+                new Planner
+                {
+                    MeetingDate = DateTime.Parse("2022-8-25"),
+                    PresideLeader = "Santiago Ortigoza",
+                    ConductingLeader = "Emiliano Martinez",
+                    OpeningSong = 44,
+                    OpeningPray = "Daniel Osma",
+                    SacramentHymn = 135,
+                    ClosingSong = 113,
+                    ClosingPray = "Maria Balde"
+                },
+                new Planner
+                {
+                    MeetingDate = DateTime.Parse("2020-5-10"),
+                    PresideLeader = "Emilio Ortega",
+                    ConductingLeader = "Juan Quiroz",
+                    OpeningSong = 05,
+                    OpeningPray = "Andry Cortizo",
+                    SacramentHymn = 60,
+                    ClosingSong = 120,
+                    ClosingPray = "Carla Martinez"
+                }
+            );
+
+            context.SaveChanges();
+
+            var planner1 = context.Planner.First();
+            var planner2 = context.Planner.Skip(1).First();
+
+            var speaker1 = context.Speaker.First();
+            var speaker2 = context.Speaker.Skip(1).First();
+
+            var topic1 = context.SpeachTopic.First();
+            var topic2 = context.SpeachTopic.Skip(1).First();
+
+            context.Speach.AddRange(
+                new Speach
+                {
+                    PlannerId = planner1.Id,
+                    SpeachTopicId = topic1.Id,
+                    SpeakerId = speaker1.Id
+                },
+                new Speach
+                {
+                    PlannerId = planner1.Id,
+                    SpeachTopicId = topic2.Id,
+                    SpeakerId = speaker2.Id
+                },
+                new Speach
+                {
+                    PlannerId = planner2.Id,
+                    SpeachTopicId = topic1.Id,
+                    SpeakerId = speaker2.Id
+                },
+                new Speach
+                {
+                    PlannerId = planner2.Id,
+                    SpeachTopicId = topic2.Id,
+                    SpeakerId = speaker1.Id
                 }
             );
 
