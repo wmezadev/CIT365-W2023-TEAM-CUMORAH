@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Runtime.Intrinsics.X86;
-using System.Threading.Tasks;
+﻿using System.Collections.Immutable;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SacramentMeetingPlanner.Data;
 using SacramentMeetingPlanner.Models;
@@ -26,15 +20,16 @@ namespace SacramentMeetingPlanner.Controllers
         {
             if (_context.Planner == null)
             {
-                return Problem("Entity set 'MvcMovieContext.Movie'  is null.");
+                return Problem("Entity set 'MvcMovieContext.Movie' is null.");
             }
 
-            var planners = from m in _context.Planner
-                         select m;
+            var planners = _context.Planner
+                            .Include(p => p.Speeches).ThenInclude(s => s.Speaker)
+                            .Include(p => p.Speeches).ThenInclude(s => s.SpeachTopic).AsQueryable();
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                planners = planners.Where(s => s.PresideLeader.Contains(searchString));
+                planners = planners.Where(p => p.Speeches.Any(s => s.Speaker.FullName.Contains(searchString)));
             }
 
             return View(await planners.ToListAsync());
@@ -49,6 +44,9 @@ namespace SacramentMeetingPlanner.Controllers
             }
 
             var planner = await _context.Planner
+                .Include("Speeches")
+                .Include("Speeches.Speaker")
+                .Include("Speeches.SpeachTopic")
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (planner == null)
             {
@@ -80,34 +78,27 @@ namespace SacramentMeetingPlanner.Controllers
                 _context.Add(planner);
                 await _context.SaveChangesAsync();
                 var speechesData = formData.Where(x => x.Key.StartsWith("Speeches"));
-                var speeches = new List<Speach>();
 
-                for (int i = 0; i < speechesData.Count() / 2; i++)
+                if (speechesData.Any())
                 {
-                    string speakerIdKey = $"Speeches[{i}].SpeakerId";
-                    string speachTopicIdKey = $"Speeches[{i}].SpeachTopicId";
+                    var speeches = new List<Speach>();
 
-                    if (formData.TryGetValue(speakerIdKey, out var speakerIdValue) && formData.TryGetValue(speachTopicIdKey, out var speachTopicIdValue))
+                    for (int i = 0; i < speechesData.Count() / 2; i++)
                     {
-                        int.TryParse(speakerIdValue, out int speakerId);
-                        int.TryParse(speachTopicIdValue, out int speachTopicId);
-
-                        var speech = new Speach
+                        var speech = GenerateSpeach(i, formData, planner);
+                        if (speech != null)
                         {
-                            SpeakerId = speakerId,
-                            SpeachTopicId = speachTopicId,
-                            PlannerId = planner.Id
-                        };
-                        speeches.Add(speech);
+                            speeches.Add(speech);
+                        }
                     }
-                }
 
-                foreach (var speech in speeches)
-                {
-                    _context.Add(speech);
-                }
+                    foreach (var speech in speeches)
+                    {
+                        _context.Add(speech);
+                    }
 
-                await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();
+                }
 
                 return RedirectToAction(nameof(Index));
             }
@@ -152,38 +143,32 @@ namespace SacramentMeetingPlanner.Controllers
                     await _context.SaveChangesAsync();
 
                     var speechesData = formData.Where(x => x.Key.StartsWith("Speeches"));
-                    var speeches = new List<Speach>();
 
-                    for (int i = 0; i < speechesData.Count() / 2; i++)
+                    if (speechesData.Any())
                     {
-                        string speakerIdKey = $"Speeches[{i}].SpeakerId";
-                        string speachTopicIdKey = $"Speeches[{i}].SpeachTopicId";
+                        var speeches = new List<Speach>();
 
-                        if (formData.TryGetValue(speakerIdKey, out var speakerIdValue) && formData.TryGetValue(speachTopicIdKey, out var speachTopicIdValue))
+                        for (int i = 0; i < speechesData.Count() / 2; i++)
                         {
-                            int.TryParse(speakerIdValue, out int speakerId);
-                            int.TryParse(speachTopicIdValue, out int speachTopicId);
-
-                            var speech = new Speach
+                            var speech = GenerateSpeach(i, formData, planner);
+                            if (speech != null)
                             {
-                                SpeakerId = speakerId,
-                                SpeachTopicId = speachTopicId,
-                                PlannerId = planner.Id
-                            };
-                            speeches.Add(speech);
+                                speeches.Add(speech);
+
+                            }
                         }
+
+                        var existingSpeeches = _context.Speach.Where(s => s.PlannerId == planner.Id);
+                        _context.Speach.RemoveRange(existingSpeeches);
+                        await _context.SaveChangesAsync();
+
+                        foreach (var speech in speeches)
+                        {
+                            _context.Add(speech);
+                        }
+
+                        await _context.SaveChangesAsync();
                     }
-
-                    var existingSpeeches = _context.Speach.Where(s => s.PlannerId == planner.Id);
-                    _context.Speach.RemoveRange(existingSpeeches);
-                    await _context.SaveChangesAsync();
-
-                    foreach (var speech in speeches)
-                    {
-                        _context.Add(speech);
-                    }
-
-                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -248,5 +233,32 @@ namespace SacramentMeetingPlanner.Controllers
         {
           return (_context.Planner?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        #region Helpers
+
+        private Speach? GenerateSpeach(int i, IFormCollection formData, Planner planner)
+        {
+            string speakerIdKey = $"Speeches[{i}].SpeakerId";
+            string speachTopicIdKey = $"Speeches[{i}].SpeachTopicId";
+
+            if (formData.TryGetValue(speakerIdKey, out var speakerIdValue) && formData.TryGetValue(speachTopicIdKey, out var speachTopicIdValue))
+            {
+                int.TryParse(speakerIdValue, out int speakerId);
+                int.TryParse(speachTopicIdValue, out int speachTopicId);
+                
+                var speech = new Speach
+                {
+                    SpeakerId = speakerId,
+                    SpeachTopicId = speachTopicId,
+                    PlannerId = planner.Id
+                };
+                // speeches.Add(speech);
+                return speech;
+            }
+
+            return null;
+           
+        }
+        #endregion
     }
 }
