@@ -34,7 +34,7 @@ namespace SacramentMeetingPlanner.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                planners = planners.Where(s => s.PresideLeader.Contains(searchString));
+                planners = planners.Where(s => s.PresideLeader!.Contains(searchString));
             }
 
             return View(await planners.ToListAsync());
