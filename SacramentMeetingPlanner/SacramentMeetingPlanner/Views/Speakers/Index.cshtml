@@ -4,32 +4,55 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<header>
+    <a asp-controller="Home" asp-action="Index">
+        <img src="/images/logo-header.png" alt="Logo" />
+    </a>
+</header>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FullName)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container-folder">
+    <div class="cont">
+        <div class="container-menu">
+            <ul>
+                <li class="create-color"><a asp-controller="Planners" asp-action="Create">Create new plan</a></li>
+                <li class="list-color"><a asp-controller="Planners" asp-action="Index">View List</a></li>
+                <li class="about-color"><a asp-controller="Speakers" asp-action="Index">Speakers</a></li>
+            </ul>
+        </div>
+        <div class="folder about-color height-specific">
+            <div class="cont-list">
+                <h1>Speakers</h1>
+
+                <p class="sub-menu">
+                    <a asp-action="Create">Create New</a>
+                </p>
+                <div class="overflow-table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FullName)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FullName)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="ancla-list">Edit</a> |
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="ancla-list">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

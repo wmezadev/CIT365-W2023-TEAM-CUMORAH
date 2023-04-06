@@ -4,21 +4,37 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<header>
+    <a asp-controller="Home" asp-action="Index">
+        <img src="/images/logo-header.png" alt="Logo" />
+    </a>
+</header>
 
-<div>
-    <h4>Speaker</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FullName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FullName)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="container-folder">
+    <div class="cont">
+        <div class="container-menu">
+            <ul>
+                <li class="create-color"><a asp-controller="Planners" asp-action="Create">Create new plan</a></li>
+                <li class="list-color"><a asp-controller="Planners" asp-action="Index">View List</a></li>
+                <li class="about-color"><a asp-controller="Speakers" asp-action="Index">Speakers</a></li>
+            </ul>
+        </div>
+        <div class="folder about-color height-specific">
+            <div class="cont-list">
+                <h1>Speaker Details</h1>
+
+                <p class="sub-menu">
+                    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
+                </p>
+                <div class="row">
+                    <div class = "col-sm-2">
+                        @Html.DisplayNameFor(model => model.FullName)
+                    </div>
+                    <div class = "col-sm-10">
+                        @Html.DisplayFor(model => model.FullName)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
