@@ -7,95 +7,137 @@
     var speachTopics = ViewBag.SpeachTopics as List<SpeachTopic>;
 }
 
-<h1>Edit</h1>
 
-<h4>Planner</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="MeetingDate" class="control-label"></label>
-                <input asp-for="MeetingDate" class="form-control" />
-                <span asp-validation-for="MeetingDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PresideLeader" class="control-label"></label>
-                <input asp-for="PresideLeader" class="form-control" />
-                <span asp-validation-for="MeetingDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConductingLeader" class="control-label"></label>
-                <input asp-for="ConductingLeader" class="form-control" />
-                <span asp-validation-for="ConductingLeader" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OpeningSong" class="control-label"></label>
-                <input asp-for="OpeningSong" class="form-control" />
-                <span asp-validation-for="OpeningSong" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OpeningPray" class="control-label"></label>
-                <input asp-for="OpeningPray" class="form-control" />
-                <span asp-validation-for="OpeningPray" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SacramentHymn" class="control-label"></label>
-                <input asp-for="SacramentHymn" class="form-control" />
-                <span asp-validation-for="SacramentHymn" class="text-danger"></span>
-            </div>
-            <!-- Start of speeches section -->
-            <div class="form-group">
-                <h4>Speeches</h4>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                Speakers
-                            </th>
-                            <th>
-                                Topics
-                            </th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="speeches-container">
-                        @{
-                            int counter = 0;
-                            foreach (var speach in Model.Speeches)
-                            {
+<div class="container-secondary">
+    <div class="notebook">
+        <div class="border-notebook">
+            <img class="espiral" src="/images/bordes.png" />
+            <img class="espiral" src="/images/bordes.png" />
+            <img class="espiral" src="/images/bordes.png" />
+            <img class="espiral" src="/images/bordes.png" />
+            <img class="espiral" src="/images/bordes.png" />
+        </div>
+        <div class="cont-details">
+
+            <h1>Edit</h1>
+            <div class="row width-alternative">
+                <div class="col-md-12">
+                    <form asp-action="Edit" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-group">
+                            <label asp-for="MeetingDate" class="control-label"></label>
+                            <input asp-for="MeetingDate" class="form-control" />
+                            <span asp-validation-for="MeetingDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="PresideLeader" class="control-label"></label>
+                            <input asp-for="PresideLeader" class="form-control" />
+                            <span asp-validation-for="MeetingDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ConductingLeader" class="control-label"></label>
+                            <input asp-for="ConductingLeader" class="form-control" />
+                            <span asp-validation-for="ConductingLeader" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="OpeningSong" class="control-label"></label>
+                            <input asp-for="OpeningSong" class="form-control" />
+                            <span asp-validation-for="OpeningSong" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="OpeningPray" class="control-label"></label>
+                            <input asp-for="OpeningPray" class="form-control" />
+                            <span asp-validation-for="OpeningPray" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="SacramentHymn" class="control-label"></label>
+                            <input asp-for="SacramentHymn" class="form-control" />
+                            <span asp-validation-for="SacramentHymn" class="text-danger"></span>
+                        </div>
+                        <!-- Start of speeches section -->
+                        <div class="form-group">
+                            <h4>Speeches</h4>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Speakers
+                                        </th>
+                                        <th>
+                                            Topics
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="speeches-container">
+                                    @{
+                                        int counter = 0;
+                                        foreach (var speach in Model.Speeches)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <select name="Speeches[@counter].SpeakerId" class="form-control">
+                                                        <option value="">-- Select a Speaker --</option>
+                                                        @foreach (var speaker in speakers)
+                                                        {
+                                                            if (speaker.Id == speach.SpeakerId)
+                                                            {
+                                                                <option value="@speaker.Id" selected>@speaker.FullName</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@speaker.Id">@speaker.FullName</option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select name="Speeches[@counter].SpeachTopicId" class="form-control">
+                                                        <option value="">-- Select a Topic --</option>
+                                                        @foreach (var speachTopic in speachTopics)
+                                                        {
+                                                            if (speachTopic.Id == speach.SpeachTopicId)
+                                                            {
+                                                                <option value="@speachTopic.Id" selected>@speachTopic.TopicName</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@speachTopic.Id">@speachTopic.TopicName</option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="remove-speech">Remove</a>
+                                                </td>
+                                            </tr>
+                                            counter++;
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                            <button id="add-speach" class="btn btn-primary" type="button">Add Speech</button>
+                        </div>
+                        <!-- Speech Template -->
+                        <table style="display:none;">
+                            <tbody id="speech-template">
                                 <tr>
                                     <td>
-                                        <select name="Speeches[@counter].SpeakerId" class="form-control">
+                                        <select name="Speeches[__counterId__].SpeakerId" class="form-control">
                                             <option value="">-- Select a Speaker --</option>
                                             @foreach (var speaker in speakers)
                                             {
-                                                if (speaker.Id == speach.SpeakerId)
-                                                {
-                                                    <option value="@speaker.Id" selected>@speaker.FullName</option>
-                                                }
-                                                else
-                                                {
-                                                    <option value="@speaker.Id">@speaker.FullName</option>
-                                                }
+                                                <option value="@speaker.Id">@speaker.FullName</option>
                                             }
                                         </select>
                                     </td>
                                     <td>
-                                        <select name="Speeches[@counter].SpeachTopicId" class="form-control">
+                                        <select name="Speeches[__counterId__].SpeachTopicId" class="form-control">
                                             <option value="">-- Select a Topic --</option>
                                             @foreach (var speachTopic in speachTopics)
                                             {
-                                                if (speachTopic.Id == speach.SpeachTopicId)
-                                                {
-                                                    <option value="@speachTopic.Id" selected>@speachTopic.TopicName</option>
-                                                }
-                                                else
-                                                {
-                                                    <option value="@speachTopic.Id">@speachTopic.TopicName</option>
-                                                }
+                                                <option value="@speachTopic.Id">@speachTopic.TopicName</option>
                                             }
                                         </select>
                                     </td>
@@ -103,62 +145,42 @@
                                         <a href="#" class="remove-speech">Remove</a>
                                     </td>
                                 </tr>
-                                counter++;
-                            }
-                        }
-                    </tbody>
-                </table>
-                <button id="add-speach" class="btn btn-primary" type="button">Add Speech</button>
+                            </tbody>
+                        </table>
+                        <!-- End of speeches section -->
+                        <div class="form-group">
+                            <label asp-for="ClosingSong" class="control-label"></label>
+                            <input asp-for="ClosingSong" class="form-control" />
+                            <span asp-validation-for="ClosingSong" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ClosingPray" class="control-label"></label>
+                            <input asp-for="ClosingPray" class="form-control" />
+                            <span asp-validation-for="ClosingPray" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
             </div>
-            <!-- Speech Template -->
-            <table style="display:none;">
-                <tbody id="speech-template">
-                    <tr>
-                        <td>
-                            <select name="Speeches[__counterId__].SpeakerId" class="form-control">
-                                <option value="">-- Select a Speaker --</option>
-                                @foreach (var speaker in speakers)
-                                {
-                                    <option value="@speaker.Id">@speaker.FullName</option>
-                                }
-                            </select>
-                        </td>
-                        <td>
-                            <select name="Speeches[__counterId__].SpeachTopicId" class="form-control">
-                                <option value="">-- Select a Topic --</option>
-                                @foreach (var speachTopic in speachTopics)
-                                {
-                                    <option value="@speachTopic.Id">@speachTopic.TopicName</option>
-                                }
-                            </select>
-                        </td>
-                        <td>
-                            <a href="#" class="remove-speech">Remove</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- End of speeches section -->
-            <div class="form-group">
-                <label asp-for="ClosingSong" class="control-label"></label>
-                <input asp-for="ClosingSong" class="form-control" />
-                <span asp-validation-for="ClosingSong" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ClosingPray" class="control-label"></label>
-                <input asp-for="ClosingPray" class="form-control" />
-                <span asp-validation-for="ClosingPray" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+
+
+        </div>
+    </div>
+    <div class="column-right">
+        <div>
+            <img src="/images/logo-header.png" />
+        </div>
+        <div class="actions">
+            <p class="menu-details"><a asp-action="Delete" asp-route-id="@Model?.Id">Delete</a></p>
+            <p class="menu-details"><a asp-action="Index">Back to List</a></p>
+        </div>
+        <div class="delete-part">
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
