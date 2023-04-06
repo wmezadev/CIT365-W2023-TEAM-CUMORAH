@@ -1,6 +1,33 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
+<header>
+    <a asp-controller="Home" asp-action="Index">
+        <img src="/images/logo-header.png" alt="Logo" />
+   </a>
+</header>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="container-folder">
+    <div class="cont">
+        <div class="container-menu">
+            <ul>
+                <li class="create-color"><a asp-controller="Planners" asp-action="Create">Create new plan</a></li>
+                <li class="list-color"><a asp-controller="Planners" asp-action="Index">View List</a></li>
+                <li class="about-color"><a asp-controller="Speakers" asp-action="Index">Speakers</a></li>
+            </ul>
+        </div>
+        <div class="folder about-color aboutUs-styles">
+            <div>
+                <img src="/images/team.png"/>
+            </div>
+            <div class="flex-about">
+                <div>
+                    <h1>Cumorah Team</h1>
+                <p>
+                    We are a beautiful Latin team that loves creating new applications, using C# and .NET In this case we created this site as a tool for the sacramental service each Sunday. As the project for the BYU course CIT 365. We hope that all of you enjoy this work. And that we can pass the course. Thank you to all of you.
+                </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

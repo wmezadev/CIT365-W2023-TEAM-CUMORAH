@@ -2,7 +2,32 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!--<header>
+    <a asp-controller="Home" asp-action="Index">
+        <img src="/images/logo-header.png" alt="Logo" />
+    </a>
+</header>-->
+
+<div class="container-folder header-section">
+    <div class="cont">
+        <div class="container-menu">
+            <ul>
+                <li class="create-color"><a asp-controller="Planners" asp-action="Create">Create new plan</a></li>
+                <li class="list-color"><a asp-controller="Planners" asp-action="Index">View List</a></li>
+                <li class="about-color"><a asp-controller="Speakers" asp-action="Index">Speakers</a></li>
+            </ul>
+        </div>
+        <div class="folder home-section">
+            <div>
+                <hr />
+                <div>
+                    <img src="images/logo.png" alt="Logo"/>
+                </div>
+                <div>
+                    <p>Incredible work from Cumorah Team on the CIT 365 Course on BYUI 2023</p>
+                </div>
+                <hr />
+            </div>
+        </div>
+    </div>
 </div>
